@@ -4,9 +4,12 @@
 /.idea/workspace.xml
 /.idea/libraries
 .DS_Store
-/build
 /captures
 *.apk
 .bak
 /gradle/*
+build/*
+gradlew/*
+.bat
+
 
