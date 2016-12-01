@@ -1,15 +1,15 @@
 *.iml
 .gradle
 /local.properties
-/.idea/workspace.xml
-/.idea/libraries
+/.idea/*
 .DS_Store
 /captures
 *.apk
 .bak
 /gradle/*
 build/*
-gradlew/*
-.bat
+/gradlew
+*.bat
+
 
 
