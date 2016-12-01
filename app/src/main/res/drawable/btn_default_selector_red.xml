@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_pressed="false">
+        <shape
+            android:shape="rectangle" >
+            <!-- 背景  -->
+            <solid android:color="@color/main_color" />
+            <!-- 圆角 -->
+            <corners android:radius="0dp" />
+            <!-- 变色 -->
+            <!--  <gradient
+                 android:angle="270"
+                 android:endColor="#f00"
+                 android:startColor="#00f" /> -->
+            <!-- 边框线条 -->
+            <stroke
+                android:width="1px"
+                android:color="#c3c3c3" />
+
+        </shape>
+    </item>
+    <item android:drawable="@drawable/btn_unenable_bg" android:state_enabled="false" />
+    <item android:state_pressed="true">
+        <shape
+            android:shape="rectangle" >
+            <!-- 背景  -->
+            <solid android:color="@color/text_color_red_30" />
+            <!-- 圆角 -->
+            <corners
+                android:bottomLeftRadius="8dp"
+                android:bottomRightRadius="8dp"
+                android:topLeftRadius="8dp"
+                android:topRightRadius="8dp" />
+            <padding
+                android:bottom="5dp"
+                android:left="5dp"
+                android:right="5dp"
+                android:top="5dp" />
+            <!-- 变色 -->
+            <!--  <gradient
+                 android:angle="270"
+                 android:endColor="#f00"
+                 android:startColor="#00f" /> -->
+            <!-- 边框线条 -->
+            <stroke
+                android:width="1px"
+                android:color="@color/text_color_red_30" />
+        </shape>
+    </item>
+
+
+</selector>

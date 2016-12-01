@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="text_default_style">
+        <item name="android:textColor">@color/text_color_gray_8c</item>
+    </style>
+
+    <style name="text_large_style" parent="text_default_style">
+        <item name="android:textSize">@dimen/text_large_size</item>
+    </style>
+
+    <style name="text_mid_style" parent="text_default_style">
+        <item name="android:textSize">@dimen/text_mid_size</item>
+    </style>
+
+    <style name="text_min_style" parent="text_default_style">
+        <item name="android:textSize">@dimen/text_min_size</item>
+    </style>
+
+    <style name="text_exmin_style" parent="text_default_style">
+        <item name="android:textSize">@dimen/text_exmin_size</item>
+    </style>
+
+    <style name="text_max_style" parent="text_default_style">
+        <item name="android:textSize">@dimen/text_max_size</item>
+    </style>
+</resources>

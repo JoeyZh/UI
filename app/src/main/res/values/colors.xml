@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <!--主题色-->
+    <color name="main_color">#e42144</color>
+    <color name="bg_main_color">#f8f8f8</color>
+    <!--分割线-->
+    <color name="divider_color">#EFEFEF</color>
+    <!--按钮颜色-->
+    <color name="btn_gray_color">#7c7d7a</color>
+    <color name="btn_gray_color_c3">#c3c3c3</color>
+    <color name="alpha_20_gray_title_color">#447c7d7a</color>
+
+
+    <color name="transparent">#0000</color>
+    <color name="white">#fff</color>
+
+</resources>
