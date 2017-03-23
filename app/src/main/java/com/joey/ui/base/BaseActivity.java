@@ -28,12 +28,9 @@ import com.joey.utils.ScreenUtils;
 
 /**
  * BaseActivity
- * Created by Administrator on 2016/3/3 0003.
+ * Created by Joey on 2016/3/3 0003.
  */
 public abstract class BaseActivity extends FragmentActivity implements ResponseHandler {
-    private final static int TOMESSAGE = 234;
-    private final static int TOCLASSIFY = 345;
-    private final static int TOHOME = 456;
     private FrameLayout mFl_container;
     private Button btn_reload;
     private RelativeLayout rl_loading, rl_error_cart;
@@ -49,7 +46,7 @@ public abstract class BaseActivity extends FragmentActivity implements ResponseH
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        MyActivityManager.getActivityManager().pushActivity(this);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         initLoadingDlg();
@@ -119,6 +116,12 @@ public abstract class BaseActivity extends FragmentActivity implements ResponseH
         super.onResume();
         if (topBarLayout.getVisibility() == View.VISIBLE)
             topBarLayout.setBackgroundResource();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        MyActivityManager.getActivityManager().popActivity(this);
     }
 
     public void resetScreen() {
