@@ -84,6 +84,8 @@ public abstract class BaseFragment extends Fragment implements ResponseHandler {
                 }
             }
         });
+        topBarLayout.setBackgroundResource(R.color.main_color);
+        topBarLayout.setVisibility(View.GONE);
         //加载小人动画
         imgLoadingAnim = (ImageView) view.findViewById(R.id.img_progress);
 //        progressBar = (ProgressBar) view.findViewById(R.id.pb_loading_bar);

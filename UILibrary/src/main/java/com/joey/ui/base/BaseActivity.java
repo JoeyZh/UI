@@ -18,7 +18,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.joey.protocol.NetUtils;
 import com.joey.protocol.ResponseHandler;
 import com.joey.R;
 import com.joey.ui.widget.LoadingDialog;
@@ -38,7 +37,6 @@ public abstract class BaseActivity extends FragmentActivity implements ResponseH
     LoadingPopUp loadingPro;
     protected TopBarLayout topBarLayout;
     // 网络请求
-    protected NetUtils mNetUtil;
     private ImageView imgLoadingAnim;
     private AnimationDrawable drawable;
     private LinearLayout mBaseRoot;
@@ -67,6 +65,7 @@ public abstract class BaseActivity extends FragmentActivity implements ResponseH
                 }
             }
         });
+        topBarLayout.setVisibility(View.GONE);
         topBarLayout.setBackgroundResource(R.color.main_color);
         View.OnClickListener reloadListener = new View.OnClickListener() {
             @Override
@@ -177,7 +176,7 @@ public abstract class BaseActivity extends FragmentActivity implements ResponseH
      * 子类的联网操作
      */
     protected void getDataFromNet() {
-        mNetUtil = NetUtils.getInstance(this);
+
     }
 
     public void onError() {

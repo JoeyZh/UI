@@ -11,4 +11,5 @@
     <color name="text_color_alpha_20_red_30">#80f23030</color>
     <color name="text_hint_color_input">#646562</color>
 
+    <drawable name="translate">#0000</drawable>
 </resources>

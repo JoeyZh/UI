@@ -2,7 +2,6 @@ package com.joey.protocol;
 
 import android.content.Context;
 
-import com.alibaba.fastjson.JSONArray;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.VolleyError;
@@ -10,7 +9,6 @@ import com.android.volley.toolbox.StringRequest;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Created by Joey on 2016/12/1.

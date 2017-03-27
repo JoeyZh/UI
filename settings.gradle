@@ -1,1 +1,1 @@
-include ':UILibrary', ':UIExample'
+include ':UILibrary', ':UIExample', ':jnet'

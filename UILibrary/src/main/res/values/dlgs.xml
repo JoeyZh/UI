@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--自定义dialog-->
+    <item name="dlg_root_layout" type="id"></item>
+    <item name="dlg_btn_layout" type="id"></item>
+    <item name="dlg_title_layout" type="id"></item>
+    <item name="dlg_content_layout" type="id"></item>
+    <item name="dlg_title_text" type="id"></item>
+    <item name="dlg_msg_text" type="id"></item>
+    <item name="dlg_btn_positive" type="id"></item>
+    <item name="dlg_btn_negative" type="id"></item>
+    <item name="dlg_btn_neutral" type="id"></item>
+
+    <color name="alertdialog_line">#c6c6c6</color>
+
+</resources>

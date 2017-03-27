@@ -1,8 +1,7 @@
-package com.joey.ui.base;
+package com.joey.ui.example;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.SharedPreferences;
 
 import com.joey.utils.SharedPreferenceUtils;
 

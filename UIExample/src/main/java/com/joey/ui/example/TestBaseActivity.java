@@ -1,10 +1,8 @@
-package com.joey.example;
+package com.joey.ui.example;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.widget.ArrayAdapter;
 
-import com.joey.R;
 import com.joey.ui.base.BaseActivity;
 import com.joey.ui.widget.pull_to_refresh.PullToRefreshView;
 import com.joey.ui.widget.pull_to_refresh.RefreshListView;
