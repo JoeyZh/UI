@@ -238,22 +238,30 @@ public class TopBarLayout extends RelativeLayout {
     }
 
     public void setLeftResource(int res) {
-        imgBtnLeft.setImageResource(res);
-        imgBtnLeft.setVisibility(VISIBLE);
         tvLeft.setVisibility(View.GONE);
         leftView.setVisibility(VISIBLE);
         if (leftCustomView != null)
             leftCustomView.setVisibility(GONE);
-
+        if (res >= 0) {
+            imgBtnLeft.setImageResource(res);
+            imgBtnLeft.setVisibility(VISIBLE);
+        } else {
+            imgBtnLeft.setVisibility(GONE);
+        }
     }
 
     public void setRightResource(int res) {
-        imgBtnRight.setImageResource(res);
+
         tvRight.setVisibility(GONE);
-        imgBtnRight.setVisibility(VISIBLE);
         rightView.setVisibility(VISIBLE);
         if (rightCustomView != null)
             rightCustomView.setVisibility(GONE);
+        if (res >= 0) {
+            imgBtnRight.setVisibility(VISIBLE);
+            imgBtnRight.setImageResource(res);
+        } else {
+            imgBtnRight.setVisibility(GONE);
+        }
     }
 
     public void setRightView(View view) {
