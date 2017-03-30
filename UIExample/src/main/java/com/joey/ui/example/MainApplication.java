@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.joey.utils.SharedPreferenceUtils;
+import com.joey.utils.ThemeUtils;
 
 /**
  * Created by Administrator on 2016/12/1.
@@ -34,6 +35,6 @@ public class MainApplication extends Application {
      * TODO 加载三方SDK
      */
     private void initSDKS(){
-
+        ThemeUtils.init(this);
     }
 }

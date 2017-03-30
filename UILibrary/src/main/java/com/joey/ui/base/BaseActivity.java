@@ -24,6 +24,7 @@ import com.joey.ui.widget.LoadingDialog;
 import com.joey.ui.widget.LoadingPopUp;
 import com.joey.ui.widget.TopBarLayout;
 import com.joey.utils.ScreenUtils;
+import com.joey.utils.ThemeUtils;
 
 /**
  * BaseActivity
@@ -66,7 +67,7 @@ public abstract class BaseActivity extends FragmentActivity implements ResponseH
             }
         });
         topBarLayout.setVisibility(View.GONE);
-        topBarLayout.setBackgroundResource(R.color.main_color);
+        topBarLayout.setBackgroundResource(ThemeUtils.getMainColorRes());
         View.OnClickListener reloadListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {

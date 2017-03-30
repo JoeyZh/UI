@@ -16,6 +16,7 @@ import com.joey.protocol.ResponseHandler;
 import com.joey.R;
 import com.joey.ui.widget.LoadingDialog;
 import com.joey.ui.widget.TopBarLayout;
+import com.joey.utils.ThemeUtils;
 
 /**
  * Created by Administrator on 2016/8/31.
@@ -84,7 +85,7 @@ public abstract class BaseFragment extends Fragment implements ResponseHandler {
                 }
             }
         });
-        topBarLayout.setBackgroundResource(R.color.main_color);
+        topBarLayout.setBackgroundResource(ThemeUtils.getMainColorRes());
         topBarLayout.setVisibility(View.GONE);
         //加载小人动画
         imgLoadingAnim = (ImageView) view.findViewById(R.id.img_progress);
