@@ -13,7 +13,7 @@ public class ThemeUtils {
     private static int mainColorRes = R.color.main_color;
     public static void init(Context context){
         ResourcesUtils.register(context);
-        mainColorRes = ResourcesUtils.getId("main_color");
+        mainColorRes = ResourcesUtils.getColorID("main_color");
     }
 
     public static int getMainColorRes(){

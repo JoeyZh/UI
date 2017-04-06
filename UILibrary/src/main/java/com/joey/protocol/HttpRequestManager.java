@@ -22,7 +22,7 @@ public class HttpRequestManager {
         mNetUtils = NetUtils.getInstance(context);
     }
 
-    public <T> void httpRequest(ResponseListener<T> responseListener, String url, final HashMap<String, String> params) {
+    public <T> void httpRequest(String url, final HashMap<String, String> params,ResponseListener<T> responseListener) {
         int method = Request.Method.POST;
         if (params == null || params.isEmpty()) {
             method = Request.Method.GET;

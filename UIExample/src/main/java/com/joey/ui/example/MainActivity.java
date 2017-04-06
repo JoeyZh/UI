@@ -29,6 +29,7 @@ public class MainActivity extends BaseActivity {
                     }
                 }).create();
         dialog.show();
+        topBarLayout.setLeftResource(-1);
         topBarLayout.setTitle("测试呀");
     }
 }

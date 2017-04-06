@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <!--主题色-->
-    <color name="main_color">#e42144</color>
+    <color name="main_color">#4cbbe5</color>
     <color name="bg_main_color">#f8f8f8</color>
     <!--分割线-->
     <color name="divider_color">#EFEFEF</color>

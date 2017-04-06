@@ -1,9 +1,10 @@
 package com.joey.protocol;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.android.volley.Response;
 import com.joey.utils.LogUtils;
 
-import org.json.JSONObject;
 
 /**
  * Created by Administrator on 2016/7/22.
@@ -25,8 +26,8 @@ public abstract class ResponseListener<T> implements Response.Listener<String> {
     private void convert(String s) {
         LogUtils.a(getClass().getName(), "convert obj = " + s);
         try {
-            JSONObject obj = new JSONObject();
-            int status = obj.getInt("status");
+            JSONObject obj = JSON.parseObject(s);
+            int status = obj.getInteger("status");
             String msg = obj.getString("message");
             if (0 == status || 1 == status) {
                 T t = (T) obj.get("result");
@@ -42,11 +43,11 @@ public abstract class ResponseListener<T> implements Response.Listener<String> {
                 handler.onError();
             return;
         } catch (Exception e) {
-            onError(new ResponseError(ResponseError.ERROR_BY_PARSE, e.getMessage()), -1);
-            if (handler != null)
-                handler.onError();
-            LogUtils.e(getClass().getName(), "error =" + e.getMessage());
-//            CrashReport.putUserData(MyApplication.mContext,getClass().getName(),e.getMessage());
+//            onError(new ResponseError(ResponseError.ERROR_BY_PARSE, e.getMessage()), -1);
+//            if (handler != null)
+//                handler.onError();
+            onSuccess((T)s,0);
+//            LogUtils.e(getClass().getName(), "error =" + e.getMessage());
             return;
         }
     }

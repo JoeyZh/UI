@@ -246,7 +246,7 @@ public class TopBarLayout extends RelativeLayout {
             imgBtnLeft.setImageResource(res);
             imgBtnLeft.setVisibility(VISIBLE);
         } else {
-            imgBtnLeft.setVisibility(GONE);
+            imgBtnLeft.setVisibility(INVISIBLE);
         }
     }
 
@@ -260,7 +260,7 @@ public class TopBarLayout extends RelativeLayout {
             imgBtnRight.setVisibility(VISIBLE);
             imgBtnRight.setImageResource(res);
         } else {
-            imgBtnRight.setVisibility(GONE);
+            imgBtnRight.setVisibility(INVISIBLE);
         }
     }
 
