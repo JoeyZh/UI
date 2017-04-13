@@ -50,17 +50,16 @@ public abstract class BaseActivity extends FragmentActivity implements ResponseH
 
         initLoadingDlg();
         initSuperView();
-        initData();
     }
 
     private void initSuperView() {
-        mBaseRoot = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.layout_base,null);
+        mBaseRoot = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.layout_base, null);
         //标题栏
         topBarLayout = (TopBarLayout) mBaseRoot.findViewById(R.id.top_layout);
         topBarLayout.setOnItemClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(v.getId() == R.id.top_left_layout){
+                if (v.getId() == R.id.top_left_layout) {
                     onBackPressed();
                     return;
                 }
@@ -96,6 +95,8 @@ public abstract class BaseActivity extends FragmentActivity implements ResponseH
             mFl_container.addView(view);
         }
         super.setContentView(mBaseRoot);
+        initViews();
+        initData();
     }
 
     @Override
@@ -108,6 +109,8 @@ public abstract class BaseActivity extends FragmentActivity implements ResponseH
             mFl_container.addView(view);
         }
         super.setContentView(mBaseRoot);
+        initViews();
+        initData();
     }
 
     @Override
@@ -139,6 +142,21 @@ public abstract class BaseActivity extends FragmentActivity implements ResponseH
         loadingPro = new LoadingPopUp(this);
     }
 
+    public void showDialog(boolean cancel) {
+        loadingDlg.setCancelable(cancel);
+        loadingDlg.showDialog();
+    }
+
+    public void showDialog(boolean cancel, String message) {
+        loadingDlg.setCancelable(cancel);
+        loadingDlg.showDialog(message);
+    }
+
+    public void showDialog(boolean cancel, int message) {
+        loadingDlg.setCancelable(cancel);
+        loadingDlg.showDialog(message);
+    }
+
     public void showDialog() {
         loadingDlg.showDialog();
     }
@@ -157,6 +175,10 @@ public abstract class BaseActivity extends FragmentActivity implements ResponseH
     }
 
     protected void initData() {
+
+    }
+
+    protected void initViews() {
 
     }
 
@@ -185,6 +207,7 @@ public abstract class BaseActivity extends FragmentActivity implements ResponseH
         rl_error_cart.setVisibility(View.VISIBLE);
         mFl_container.setVisibility(View.GONE);
         drawable.stop();
+        dismissDialog();
     }
 
     public void onSuccess() {
@@ -192,6 +215,7 @@ public abstract class BaseActivity extends FragmentActivity implements ResponseH
         rl_error_cart.setVisibility(View.GONE);
         mFl_container.setVisibility(View.VISIBLE);
         drawable.stop();
+        dismissDialog();
     }
 
     public void onLoading() {
@@ -208,7 +232,7 @@ public abstract class BaseActivity extends FragmentActivity implements ResponseH
         Configuration config = new Configuration();
         config.setToDefaults();
         res.updateConfiguration(config, res.getDisplayMetrics());
-        return res;
+        return res;git
 
     }
 }

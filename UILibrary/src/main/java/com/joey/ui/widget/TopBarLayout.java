@@ -295,7 +295,7 @@ public class TopBarLayout extends RelativeLayout {
         startSearch();
     }
 
-    public void startSearch() {
+    private void startSearch() {
         LogUtils.i("startSearch onSearching = " + onSearching);
         if (onSearching)
             return;
@@ -309,10 +309,10 @@ public class TopBarLayout extends RelativeLayout {
             setRightText(android.R.string.cancel);
     }
 
-    private void onSearch() {
+    public void onSearch() {
         String text = searchEdit.getText().toString().trim();
-        if (text.isEmpty())
-            return;
+//        if (text.isEmpty())
+//            return;
         if (searchListener != null) {
             searchListener.onSearch(text);
         }

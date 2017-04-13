@@ -22,7 +22,7 @@ public class LoadingDialog {
     private TextView tvMsg;
 
     public LoadingDialog(Context context) {
-        init(context, false);
+        init(context, true);
     }
 
     public LoadingDialog(Context context, boolean cancel) {
@@ -36,8 +36,16 @@ public class LoadingDialog {
         drawable = (AnimationDrawable) loadingImg.getBackground();
         loadingDlg = new Dialog(context, R.style.dialog_transparent);
         loadingDlg.setContentView(rootView);
-        loadingDlg.setCanceledOnTouchOutside(cancel);
+        loadingDlg.setCanceledOnTouchOutside(true);
         loadingDlg.setCancelable(cancel);
+    }
+
+    public void setCancelable(boolean cancel) {
+        loadingDlg.setCancelable(cancel);
+    }
+
+    public void setCanceledOnTouchOutside(boolean cancle) {
+        loadingDlg.setCanceledOnTouchOutside(cancle);
     }
 
     public void showDialog() {

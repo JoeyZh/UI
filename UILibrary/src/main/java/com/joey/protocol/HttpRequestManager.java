@@ -6,7 +6,20 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.joey.utils.LogUtils;
+import com.lidroid.xutils.HttpUtils;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.RequestParams;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest;
+import com.lidroid.xutils.http.client.multipart.FormBodyPart;
+import com.lidroid.xutils.http.client.multipart.MultipartEntity;
+import com.lidroid.xutils.http.client.multipart.content.FileBody;
+import com.lidroid.xutils.http.client.multipart.content.StringBody;
 
+
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,11 +31,16 @@ public class HttpRequestManager {
 
     private NetUtils mNetUtils;
 
+    private HttpUtils httpUtils;
+    private Context context;
+
     public HttpRequestManager(Context context) {
+        this.context = context;
         mNetUtils = NetUtils.getInstance(context);
+        httpUtils = new HttpUtils();
     }
 
-    public <T> void httpRequest(String url, final HashMap<String, String> params,ResponseListener<T> responseListener) {
+    public <T> void httpRequest(String url, final HashMap<String, String> params, final ResponseListener<T> responseListener) {
         int method = Request.Method.POST;
         if (params == null || params.isEmpty()) {
             method = Request.Method.GET;
@@ -33,7 +51,8 @@ public class HttpRequestManager {
                 new com.android.volley.Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
-
+                        ResponseError error = new ResponseError(ResponseError.ERRPR_BY_NET, "亲，服务器在偷懒，请重试");
+                        responseListener.onError(error, ResponseError.ERRPR_BY_NET);
                     }
                 }) {
             @Override
@@ -43,4 +62,54 @@ public class HttpRequestManager {
         };
         mNetUtils.addToRequestQueue(request);
     }
+
+
+    public <T> void upLoad(String url, HashMap<String, String> mapParams, final ResponseListener<T> responseListener, File[] files) {
+        RequestParams params = new RequestParams();
+        MultipartEntity entity = new MultipartEntity();
+        for (int i = 0; i < files.length; i++) {
+            FileBody body = new FileBody(files[i]);
+            entity.addPart(new FormBodyPart("file", body));
+            LogUtils.e("-->" + files[i]);
+        }
+        try {
+            for (String key : mapParams.keySet()) {
+                entity.addPart(key, new StringBody(mapParams.get(key)));
+            }
+        } catch (Exception e) {
+
+        }
+        params.setBodyEntity(entity);
+        httpUtils.send(HttpRequest.HttpMethod.POST,
+                url,
+                params,
+                new RequestCallBack<String>() {
+                    @Override
+                    public void onSuccess(ResponseInfo<String> responseInfo) {
+                        try {
+                            String s = new String(responseInfo.result);
+                            responseListener.onResponse(s);
+
+                        } catch (Exception e) {
+
+                        }
+                    }
+
+                    @Override
+                    public void onLoading(long total, long current, boolean isUploading) {
+                        super.onLoading(total, current, isUploading);
+                        responseListener.onLoading(total, current, isUploading);
+                    }
+
+
+                    @Override
+                    public void onFailure(HttpException e, String s) {
+                        ResponseError error = new ResponseError(ResponseError.ERRPR_BY_NET, e.getMessage());
+                        responseListener.onError(error, ResponseError.ERRPR_BY_NET);
+                    }
+                }
+        );
+    }
+
+
 }
