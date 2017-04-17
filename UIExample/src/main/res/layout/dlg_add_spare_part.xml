@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_dlg_add_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="太爱爱"
+        android:drawablePadding="@dimen/layout_min_margin"
+        android:textColor="@color/text_color_gray_24"
+        android:padding="@dimen/layout_min_margin"
+        android:textSize="@dimen/layout_mid_margin" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="@dimen/layout_min_margin">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="left|center_vertical"
+            android:text="领用数量:" />
+
+        <EditText
+            android:id="@+id/et_add_count"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/layout_min_margin"
+            android:inputType="number"
+            android:minWidth="100dp" />
+    </LinearLayout>
+
+</LinearLayout>

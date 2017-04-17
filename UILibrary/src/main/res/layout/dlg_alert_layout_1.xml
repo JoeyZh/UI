@@ -37,9 +37,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="@dimen/layout_min_margin"
             android:layout_weight="1"
-            android:padding="@dimen/layout_mid_margin">
+            android:paddingLeft="@dimen/layout_mid_margin"
+            android:paddingRight="@dimen/layout_mid_margin">
 
             <TextView
                 android:id="@id/dlg_msg_text"

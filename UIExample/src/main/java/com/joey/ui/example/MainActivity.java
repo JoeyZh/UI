@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Environment;
+import android.view.View;
 
 import com.alibaba.fastjson.JSONArray;
 import com.joey.protocol.HttpRequestManager;
@@ -23,10 +24,12 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        View view = View.inflate(this, R.layout.dlg_add_spare_part, null);
         JAlertDialog dialog = new JAlertDialog.Builder(MainActivity.this)
-                .setMessage("sssssss")
-                .setTitle("hahahaah")
-                .setNegativeButton("aaaa", new DialogInterface.OnClickListener() {
+                .setContentView(view)
+//                .setTitle("sssssss")
+//                .setMessage("44x43的那怎么办")
+                .setNegativeButton("aa", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
@@ -51,13 +54,13 @@ public class MainActivity extends BaseActivity {
         String sdCardPath = Environment.getExternalStorageDirectory().getPath() + "/Pictures/img0";
         File[] files = new File[3];
         for (int i = 0; i < 3; i++) {
-            String path = sdCardPath + (i+1) + ".png";
+            String path = sdCardPath + (i + 1) + ".png";
             File file = new File(path);
             files[i] = file;
-            LogUtils.a(path+" is exists :"+file.exists());
+            LogUtils.a(path + " is exists :" + file.exists());
         }
-        HashMap<String,String> map = new HashMap<>();
-        map.put("json",json);
+        HashMap<String, String> map = new HashMap<>();
+        map.put("json", json);
         manager.upLoad(url, map, new ResponseListener<JSONArray>(this) {
             @Override
             public void onSuccess(JSONArray objects, int status) {
@@ -68,7 +71,7 @@ public class MainActivity extends BaseActivity {
             public void onLoading(long total, long current, boolean isUploading) {
                 super.onLoading(total, current, isUploading);
 
-                showDialog("正在上传"+current+"/"+total);
+                showDialog("正在上传" + current + "/" + total);
             }
 
             @Override

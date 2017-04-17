@@ -24,7 +24,7 @@ public class SharedPreferenceUtils {
 
     }
 
-    public void init(Context context,String name) {
+    public void init(Context context, String name) {
         mContext = context;
         preferences = context.getSharedPreferences(name,
                 mContext.MODE_WORLD_READABLE);
@@ -97,6 +97,11 @@ public class SharedPreferenceUtils {
 
     public boolean getBoolean(String key) {
         return preferences.getBoolean(key, false);
+    }
+
+    public void remove(String key) {
+        editor.remove(key);
+        editor.commit();
     }
 
     public void clearAll() {

@@ -232,7 +232,7 @@ public abstract class BaseActivity extends FragmentActivity implements ResponseH
         Configuration config = new Configuration();
         config.setToDefaults();
         res.updateConfiguration(config, res.getDisplayMetrics());
-        return res;git
+        return res;
 
     }
 }

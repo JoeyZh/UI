@@ -17,6 +17,8 @@ import com.joey.R;
  */
 public class JAlertDialog extends Dialog {
     public boolean autoDismiss = true;
+    private TextView tvTitle;
+    private TextView tvMessage;
 
     public JAlertDialog(Context context) {
         super(context);
@@ -28,6 +30,30 @@ public class JAlertDialog extends Dialog {
 
     protected JAlertDialog(Context context, boolean cancelable, OnCancelListener cancelListener) {
         super(context, cancelable, cancelListener);
+    }
+
+    public void setTitle(CharSequence title) {
+        if (tvTitle == null)
+            return;
+        tvTitle.setText(title);
+    }
+
+    public void setTitle(int title) {
+        if (tvTitle == null)
+            return;
+        tvTitle.setText(title);
+    }
+
+    public void setMessage(CharSequence message) {
+        if (tvMessage == null)
+            return;
+        tvMessage.setText(message);
+    }
+
+    public void setMessage(int message) {
+        if (tvMessage == null)
+            return;
+        tvMessage.setText(message);
     }
 
     /**
@@ -87,7 +113,7 @@ public class JAlertDialog extends Dialog {
          * @return
          */
         public Builder setPositiveButton(String positiveButtonText,
-                OnClickListener listener) {
+                                         OnClickListener listener) {
             this.positiveButtonText = positiveButtonText;
             this.positiveButtonClickListener = listener;
             return this;
@@ -192,6 +218,7 @@ public class JAlertDialog extends Dialog {
             if (null == title) {
                 titleView.setVisibility(View.GONE);
             } else {
+                dialog.tvTitle = titleView;
                 titleView.setText(title);
                 titleView.setVisibility(View.VISIBLE);
 
@@ -201,6 +228,7 @@ public class JAlertDialog extends Dialog {
             if (null == message) {
                 messageView.setVisibility(View.GONE);
             } else {
+                dialog.tvMessage = messageView;
                 messageView.setText(message);
                 messageView.setVisibility(View.VISIBLE);
             }
@@ -218,7 +246,7 @@ public class JAlertDialog extends Dialog {
                     @Override
                     public void onClick(View v) {
                         // TODO Auto-generated method stub
-                        if(dialog.autoDismiss)
+                        if (dialog.autoDismiss)
                             dialog.dismiss();
                         positiveButtonClickListener.onClick(dialog,
                                 DialogInterface.BUTTON_POSITIVE);
@@ -238,7 +266,7 @@ public class JAlertDialog extends Dialog {
 
                     @Override
                     public void onClick(View v) {
-                        if(dialog.autoDismiss)
+                        if (dialog.autoDismiss)
                             dialog.dismiss();
                         negativeButtonClickListener.onClick(dialog,
                                 DialogInterface.BUTTON_NEGATIVE);
@@ -260,8 +288,8 @@ public class JAlertDialog extends Dialog {
                     @Override
                     public void onClick(View v) {
                         // TODO Auto-generated method stub
-                        if(dialog.autoDismiss)
-                              dialog.dismiss();
+                        if (dialog.autoDismiss)
+                            dialog.dismiss();
                         neutralButtonClickListener.onClick(dialog,
                                 DialogInterface.BUTTON_NEUTRAL);
                     }
