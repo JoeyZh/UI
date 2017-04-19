@@ -13,9 +13,9 @@ import android.widget.Toast;
  */
 public class ToastUtil {
 
-    public  final  static int TOAST_OF_WARING = 1;
-    public  final  static int TOAST_OF_ERROR = 2;
-    public  final  static int TOAST_OF_SUCCESS = 0;
+    public final static int TOAST_OF_WARING = 1;
+    public final static int TOAST_OF_ERROR = 2;
+    public final static int TOAST_OF_SUCCESS = 0;
     private static Handler handler = new Handler(Looper.getMainLooper());
     private static Toast toast = null;
     private static Object synObj = new Object();
@@ -69,7 +69,7 @@ public class ToastUtil {
                     } else {
                         toast = Toast.makeText(context, text, duration);
                     }
-                    toast.setGravity(Gravity.CENTER, 0, 10);
+                    toast.setGravity(Gravity.BOTTOM, 0, 10);
                     toast.show();
                 }
             }
@@ -83,6 +83,7 @@ public class ToastUtil {
             toast = null;
         }
     }
+
     // 弹出显示数据框
     public static void ShowToastCommon(Activity mcontext, String strRes, int flag) {
 //        LinearLayout layout = (LinearLayout) mcontext.getLayoutInflater().inflate(R.layout.imageview_item,null);
