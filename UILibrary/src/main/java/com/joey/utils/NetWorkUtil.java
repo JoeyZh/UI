@@ -21,6 +21,8 @@ import java.net.SocketException;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.Enumeration;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 网络相关工具类
@@ -118,7 +120,7 @@ public class NetWorkUtil {
     private static Context mContext;
     private static DecimalFormat df = new DecimalFormat("#.##");
 
-    public static void init (Context context){
+    public static void init(Context context) {
         mContext = context;
     }
 
@@ -266,6 +268,23 @@ public class NetWorkUtil {
     public static boolean IsNetWorkConnected() {
         // 使用连接web的方式,不使用ping
         return connectionWebUrl();
+    }
+
+    public static boolean isIP(String addr) {
+        if (addr.length() < 7 || addr.length() > 15 || "".equals(addr)) {
+            return false;
+        }
+        String rexp = "((?:(?:25[0-5]|2[0-4]\\d|((1\\d{2})|([1-9]?\\d)))\\.){3}(?:25[0-5]|2[0-4]\\d|((1\\d{2})|([1-9]?\\d))))";
+
+        // return addr.matches(rexp);
+
+        Pattern pat = Pattern.compile(rexp);
+
+        Matcher mat = pat.matcher(addr);
+
+        boolean ipAddress = mat.matches();
+        return ipAddress;
+
     }
 
     /**
@@ -456,7 +475,7 @@ public class NetWorkUtil {
     /**
      * 检查sim卡状态
      *
-     * @param 
+     * @param
      * @return
      */
     public static boolean checkSimState() {
@@ -520,8 +539,7 @@ public class NetWorkUtil {
      * 是否是移动网络环境
      *
      * @return 是否是移动网络
-     * @see
-     * ://stackoverflow.com/questions/12806709/how-to-tell-if-mobile-network
+     * @see ://stackoverflow.com/questions/12806709/how-to-tell-if-mobile-network
      * -data-is-enabled-or-disabled-even-when-connected
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)

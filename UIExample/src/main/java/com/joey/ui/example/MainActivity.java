@@ -13,6 +13,7 @@ import com.joey.protocol.ResponseListener;
 import com.joey.ui.base.BaseActivity;
 import com.joey.ui.widget.JAlertDialog;
 import com.joey.utils.LogUtils;
+import com.joey.utils.NetWorkUtil;
 import com.lidroid.xutils.http.client.multipart.content.FileBody;
 
 import java.io.File;
@@ -44,6 +45,13 @@ public class MainActivity extends BaseActivity {
         dialog.show();
         topBarLayout.setLeftResource(-1);
         topBarLayout.setTitle("测试呀");
+        String test1 = "fjklsjfljk";
+        String test2 = "189.234.2.443";
+        String test3 = "189.234.2.123";
+
+        LogUtils.a(test1 + " is Ip :" + NetWorkUtil.isIP(test1));
+        LogUtils.a(test2 + " is Ip :" + NetWorkUtil.isIP(test2));
+        LogUtils.a(test3 + " is Ip :" + NetWorkUtil.isIP(test3));
     }
 
     private void test() {

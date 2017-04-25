@@ -29,7 +29,7 @@ public abstract class ResponseListener<T> implements Response.Listener<String> {
             JSONObject obj = JSON.parseObject(s);
             int status = obj.getInteger("resultCode");
             String msg = obj.getString("resultMessage");
-            if (0 == status || 1 == status) {
+            if (1 == status) {
                 T t = (T) obj.get("result");
                 LogUtils.a(getClass().getName(), "result = " + t.toString());
                 onSuccess(t, status);

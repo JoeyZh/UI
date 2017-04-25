@@ -69,7 +69,7 @@ public class ToastUtil {
                     } else {
                         toast = Toast.makeText(context, text, duration);
                     }
-                    toast.setGravity(Gravity.BOTTOM, 0, 10);
+                    toast.setGravity(Gravity.BOTTOM, 0, 20);
                     toast.show();
                 }
             }

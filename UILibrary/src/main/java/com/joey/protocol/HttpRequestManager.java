@@ -45,6 +45,7 @@ public class HttpRequestManager {
         if (params == null || params.isEmpty()) {
             method = Request.Method.GET;
         }
+        LogUtils.a("map: " + params.toString());
         StringRequest request = new StringRequest(method,
                 url,
                 responseListener,
@@ -80,6 +81,7 @@ public class HttpRequestManager {
 
         }
         params.setBodyEntity(entity);
+        LogUtils.a("map: " + params.toString());
         httpUtils.send(HttpRequest.HttpMethod.POST,
                 url,
                 params,
