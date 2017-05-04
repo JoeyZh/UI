@@ -226,13 +226,13 @@ public abstract class BaseActivity extends FragmentActivity implements ResponseH
         drawable.start();
     }
 
-    @Override
-    public Resources getResources() {
-        Resources res = super.getResources();
-        Configuration config = new Configuration();
-        config.setToDefaults();
-        res.updateConfiguration(config, res.getDisplayMetrics());
-        return res;
-
-    }
+//    @Override
+//    public Resources getResources() {
+//        Resources res = super.getResources();
+//        Configuration config = new Configuration();
+//        config.setToDefaults();
+//        res.updateConfiguration(config, res.getDisplayMetrics());
+//        return res;
+//
+//    }
 }

@@ -45,6 +45,7 @@ public class MainActivity extends BaseActivity {
         dialog.show();
         topBarLayout.setLeftResource(-1);
         topBarLayout.setTitle("测试呀");
+        topBarLayout.showNotice("ceshishihiho");
         String test1 = "fjklsjfljk";
         String test2 = "189.234.2.443";
         String test3 = "189.234.2.123";

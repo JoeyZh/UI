@@ -41,6 +41,8 @@ public class TopBarLayout extends RelativeLayout {
     private int hintColor = -1;
     private View customTitle;
     private ViewGroup titleCenter;
+    private TextView tvNotice;
+    private View topLayout;
 
 
     public boolean isOnSearching() {
@@ -92,9 +94,24 @@ public class TopBarLayout extends RelativeLayout {
         searchBtn.setOnClickListener(liseer);
     }
 
+    public void showNotice(CharSequence text) {
+        tvNotice.setText(text);
+        tvNotice.setVisibility(VISIBLE);
+    }
+
+    public void showNotice(int text) {
+        tvNotice.setText(text);
+        tvNotice.setVisibility(VISIBLE);
+    }
+
+    public void hideNotice() {
+        tvNotice.setVisibility(VISIBLE);
+    }
+
     public void setOnItemClickListener(OnClickListener listener) {
         leftView.setOnClickListener(listener);
         rightView.setOnClickListener(listener);
+        tvNotice.setOnClickListener(listener);
     }
 
     public void setOnSearchListener(OnSearchListener listener) {
@@ -103,10 +120,12 @@ public class TopBarLayout extends RelativeLayout {
 
     private void init() {
         View root = View.inflate(getContext(), R.layout.common_title_layout1, this);
+        topLayout = root.findViewById(R.id.top_layout);
         title = (TextView) root.findViewById(R.id.text_title);
         titleCenter = (ViewGroup) root.findViewById(R.id.top_center_layout);
         tvRight = (TextView) root.findViewById(R.id.top_right_text);
         tvLeft = (TextView) root.findViewById(R.id.top_left_text);
+        tvNotice = (TextView) root.findViewById(R.id.top_notice_text);
         imgBtnRight = (ImageView) root.findViewById(R.id.top_right_img_btn);
         imgBtnLeft = (ImageView) root.findViewById(R.id.top_left_img_btn);
         leftView = root.findViewById(R.id.top_left_layout);
