@@ -105,7 +105,7 @@ public class TopBarLayout extends RelativeLayout {
     }
 
     public void hideNotice() {
-        tvNotice.setVisibility(VISIBLE);
+        tvNotice.setVisibility(GONE);
     }
 
     public void setOnItemClickListener(OnClickListener listener) {
