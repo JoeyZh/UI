@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
+import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.joey.utils.LogUtils;
@@ -33,6 +34,9 @@ public class HttpRequestManager {
 
     private HttpUtils httpUtils;
     private Context context;
+    // 标记全局是否离线操作，用此拦截所有网络请求
+    private static boolean offline;
+    private static String domainUrl;
 
     public HttpRequestManager(Context context) {
         this.context = context;
@@ -40,7 +44,21 @@ public class HttpRequestManager {
         httpUtils = new HttpUtils();
     }
 
-    public <T> void httpRequest(String url, final HashMap<String, String> params, final ResponseListener<T> responseListener) {
+    public static void setDomainUrl(String url) {
+        domainUrl = url;
+    }
+
+    public static void setOffline(boolean isOffline) {
+        offline = isOffline;
+    }
+
+    public <T> void httpRequest(String domainUrl, String url, final HashMap<String, String> params, final ResponseListener<T> responseListener) {
+        if (offline) {
+            ResponseError error = new ResponseError(ResponseError.ERROR_OFF_LINE, "离线登录");
+            responseListener.onError(error, 1);
+            return;
+        }
+        url = domainUrl + url;
         int method = Request.Method.POST;
         if (params == null || params.isEmpty()) {
             method = Request.Method.GET;
@@ -61,17 +79,29 @@ public class HttpRequestManager {
                 return params;
             }
         };
+
         mNetUtils.addToRequestQueue(request);
     }
 
+    public <T> void httpRequest(String url, final HashMap<String, String> params, final ResponseListener<T> responseListener) {
+        httpRequest(domainUrl, url, params, responseListener);
 
-    public <T> void upLoad(String url, HashMap<String, String> mapParams, final ResponseListener<T> responseListener, File[] files) {
+    }
+
+    public <T> void upLoad(String domainUrl, String url, HashMap<String, String> mapParams, final ResponseListener<T> responseListener, File[] files) {
+        if (offline) {
+            ResponseError error = new ResponseError(ResponseError.ERROR_OFF_LINE, "离线登录");
+            responseListener.onError(error, 1);
+            return;
+        }
         RequestParams params = new RequestParams();
         MultipartEntity entity = new MultipartEntity();
-        for (int i = 0; i < files.length; i++) {
-            FileBody body = new FileBody(files[i]);
-            entity.addPart(new FormBodyPart("file", body));
-            LogUtils.e("-->" + files[i]);
+        if (files != null) {
+            for (int i = 0; i < files.length; i++) {
+                FileBody body = new FileBody(files[i]);
+                entity.addPart(new FormBodyPart("file", body));
+                LogUtils.e("-->" + files[i]);
+            }
         }
         try {
             for (String key : mapParams.keySet()) {
@@ -111,6 +141,10 @@ public class HttpRequestManager {
                     }
                 }
         );
+    }
+
+    public <T> void upLoad(String url, HashMap<String, String> mapParams, final ResponseListener<T> responseListener, File[] files) {
+        upLoad(domainUrl, url, mapParams, responseListener, files);
     }
 
 
