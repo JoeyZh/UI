@@ -66,11 +66,11 @@ public class FileUtil {
      * @param bitmap     图片
      * @return
      */
-    public static boolean saveImage(String folderPath, String fileName, Bitmap bitmap) {
+    public static File saveImage(String folderPath, String fileName, Bitmap bitmap) {
         return saveImage(folderPath, fileName, bitmap, 0);
     }
 
-    public static boolean saveImage(String folderPath, String fileName, Bitmap bitmap, int type) {
+    public static File saveImage(String folderPath, String fileName, Bitmap bitmap, int type) {
         // 默认为png
         String imageType = IMAGE_PNG_KIND;
         if (type == 1) {
@@ -91,11 +91,11 @@ public class FileUtil {
             }
             outStream.flush();
             outStream.close();
-            return true;
+            return imageFile;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return false;
+        return null;
     }
 
     /**
@@ -131,6 +131,26 @@ public class FileUtil {
                 file.delete();
             }
         }
+    }
+
+    public static void clearDir(String fileDir) {
+        File file = new File(fileDir);
+        clearDir(file);
+    }
+
+    public static void clearDir(File file) {
+        if (!file.exists())
+            return;
+        if (file.isFile()) {
+            file.delete();
+            return;
+        }
+        String childs[] = file.list();
+        for (int i = 0; i < childs.length; i++) {
+            clearDir(new File(file, childs[i]));
+        }
+        file.delete();
+
     }
 
     /**

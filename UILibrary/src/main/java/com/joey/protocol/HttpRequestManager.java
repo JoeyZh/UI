@@ -84,7 +84,7 @@ public class HttpRequestManager {
     }
 
     public <T> void httpRequest(String url, final HashMap<String, String> params, final ResponseListener<T> responseListener) {
-        httpRequest(domainUrl, url, params, responseListener);
+        httpRequest("", url, params, responseListener);
 
     }
 
@@ -144,7 +144,7 @@ public class HttpRequestManager {
     }
 
     public <T> void upLoad(String url, HashMap<String, String> mapParams, final ResponseListener<T> responseListener, File[] files) {
-        upLoad(domainUrl, url, mapParams, responseListener, files);
+        upLoad("", url, mapParams, responseListener, files);
     }
 
 
