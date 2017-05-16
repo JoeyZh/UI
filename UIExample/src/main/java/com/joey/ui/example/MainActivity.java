@@ -1,10 +1,13 @@
 package com.joey.ui.example;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
+import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONArray;
 import com.joey.protocol.HttpRequestManager;
@@ -19,30 +22,23 @@ import com.lidroid.xutils.http.client.multipart.content.FileBody;
 import java.io.File;
 import java.util.HashMap;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements View.OnClickListener {
+
+    View tv1;
+    View tv2;
+    View tv3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        View view = View.inflate(this, R.layout.dlg_add_spare_part, null);
-        JAlertDialog dialog = new JAlertDialog.Builder(MainActivity.this)
-                .setContentView(view)
-//                .setTitle("sssssss")
-//                .setMessage("44x43的那怎么办")
-                .setNegativeButton("aa", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
 
-                    }
-                })
-                .setNeutralButton("上传图片", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        test();
-                    }
-                }).create();
-        dialog.show();
+        tv1 = findViewById(R.id.tv_dlg);
+        tv2 = findViewById(R.id.tv_calendar);
+        tv3 = findViewById(R.id.tv_upload);
+        tv1.setOnClickListener(this);
+        tv2.setOnClickListener(this);
+        tv3.setOnClickListener(this);
         topBarLayout.setLeftResource(-1);
         topBarLayout.setTitle("测试呀");
         topBarLayout.showNotice("ceshishihiho");
@@ -53,6 +49,51 @@ public class MainActivity extends BaseActivity {
         LogUtils.a(test1 + " is Ip :" + NetWorkUtil.isIP(test1));
         LogUtils.a(test2 + " is Ip :" + NetWorkUtil.isIP(test2));
         LogUtils.a(test3 + " is Ip :" + NetWorkUtil.isIP(test3));
+    }
+
+
+    private void showJDialog() {
+        View view = View.inflate(this, R.layout.dlg_add_spare_part, null);
+        JAlertDialog dialog = new JAlertDialog.Builder(MainActivity.this)
+                .setContentView(view)
+//                .setTitle("dialog")
+                .setNegativeButton("中立", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                })
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                })
+                .setNeutralButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+//
+                    }
+                }).create();
+        dialog.show();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tv_calendar:
+                gotoCalendar();
+                break;
+            case R.id.tv_dlg:
+                showJDialog();
+                break;
+            case R.id.tv_upload:
+                test();
+                break;
+        }
+    }
+
+    private void gotoCalendar() {
+        startActivity(new Intent(MainActivity.this, CalenderActivity.class));
     }
 
     private void test() {
