@@ -19,8 +19,8 @@ public class TimeUtils {
     public static final String FORMATTER_DATE_AND_TIME2 = "dd/MM/yyyy HH:mm:ss";
     public static final String FORMATTER_DATE_AND_TIME = "yyyy-MM-dd HH:mm:ss";
     public static final String FORMATTER_DATE = "yyyy-MM-dd";
-    public static final String FORMATTER_TIME = "HH-mm-ss";
-    public static final String FORMATTER_TIME_2 = "HH:mm:ss";
+    public static final String FORMATTER_TIME_ = "HH-mm-ss";
+    public static final String FORMATTER_TIME = "HH:mm:ss";
     public static final String FORMATTER_DATE_AND_TIME_CH = "yyyy年MM月dd日 HH:mm:ss EEEE";
     public static final String FORMATTER_YEAR_AND_MONTH_CH = "yyyy年MM月";
     public static final String FORMATTER_YEAR_AND_MONTH_DAY = "yyyy年MM月DD日";
@@ -72,11 +72,17 @@ public class TimeUtils {
         }
     }
 
-    public static String convertMillisToHHmmss(long time,String timerFormat) {
+    public static String convertMillisToHHmmss(long time, String timerFormat) {
         SimpleDateFormat formatter = new SimpleDateFormat(timerFormat);
         Date currentTime = new Date();
         String dateString = formatter.format(currentTime);
         return dateString;
+    }
+
+    public static String convertDateToStr(Date date, String format) {
+        SimpleDateFormat formatDate = new SimpleDateFormat(format);
+        return formatDate.format(date);
+
     }
 
 }

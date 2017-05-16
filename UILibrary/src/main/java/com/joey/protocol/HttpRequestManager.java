@@ -94,6 +94,11 @@ public class HttpRequestManager {
             responseListener.onError(error, 1);
             return;
         }
+        if (files == null || files.length == 0) {
+            httpRequest(domainUrl, url, mapParams, responseListener);
+            return;
+        }
+        url = domainUrl + url;
         RequestParams params = new RequestParams();
         MultipartEntity entity = new MultipartEntity();
         if (files != null) {
