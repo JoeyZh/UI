@@ -36,7 +36,7 @@ public class HttpRequestManager {
     private Context context;
     // 标记全局是否离线操作，用此拦截所有网络请求
     private static boolean offline;
-    private static String domainUrl;
+    private static String domainUrl = "";
 
     public HttpRequestManager(Context context) {
         this.context = context;
@@ -63,7 +63,8 @@ public class HttpRequestManager {
         if (params == null || params.isEmpty()) {
             method = Request.Method.GET;
         }
-        LogUtils.a("map: " + params.toString());
+        LogUtils.a("url：" + url + "[[[+ map: " + params.toString());
+
         StringRequest request = new StringRequest(method,
                 url,
                 responseListener,
@@ -84,7 +85,7 @@ public class HttpRequestManager {
     }
 
     public <T> void httpRequest(String url, final HashMap<String, String> params, final ResponseListener<T> responseListener) {
-        httpRequest("", url, params, responseListener);
+        httpRequest(domainUrl, url, params, responseListener);
 
     }
 
@@ -105,7 +106,7 @@ public class HttpRequestManager {
             for (int i = 0; i < files.length; i++) {
                 FileBody body = new FileBody(files[i]);
                 entity.addPart(new FormBodyPart("file", body));
-                LogUtils.e("-->" + files[i]);
+                LogUtils.a("filePart-->" + files[i]);
             }
         }
         try {
@@ -116,7 +117,7 @@ public class HttpRequestManager {
 
         }
         params.setBodyEntity(entity);
-        LogUtils.a("map: " + params.toString());
+        LogUtils.a("url：" + url + "[[[+ map: " + params.toString());
         httpUtils.send(HttpRequest.HttpMethod.POST,
                 url,
                 params,
@@ -149,7 +150,7 @@ public class HttpRequestManager {
     }
 
     public <T> void upLoad(String url, HashMap<String, String> mapParams, final ResponseListener<T> responseListener, File[] files) {
-        upLoad("", url, mapParams, responseListener, files);
+        upLoad(domainUrl, url, mapParams, responseListener, files);
     }
 
 

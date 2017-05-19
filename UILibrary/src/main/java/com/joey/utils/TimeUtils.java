@@ -23,7 +23,7 @@ public class TimeUtils {
     public static final String FORMATTER_TIME = "HH:mm:ss";
     public static final String FORMATTER_DATE_AND_TIME_CH = "yyyy年MM月dd日 HH:mm:ss EEEE";
     public static final String FORMATTER_YEAR_AND_MONTH_CH = "yyyy年MM月";
-    public static final String FORMATTER_YEAR_AND_MONTH_DAY = "yyyy年MM月DD日";
+    public static final String FORMATTER_YEAR_AND_MONTH_DAY = "yyyy年MM月dd日";
 
     private TimeUtils() {
         throw new AssertionError();
@@ -82,7 +82,17 @@ public class TimeUtils {
     public static String convertDateToStr(Date date, String format) {
         SimpleDateFormat formatDate = new SimpleDateFormat(format);
         return formatDate.format(date);
+    }
 
+    public static Date convertStrToDate(String dateStr, String format) {
+        SimpleDateFormat formatDate = new SimpleDateFormat(format);
+        try {
+            Date date = formatDate.parse(dateStr);
+            return date;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 }

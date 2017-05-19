@@ -2,34 +2,36 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0000">
+    android:background="#0000"
+    android:padding="10dp">
 
 
     <LinearLayout
         android:id="@id/dlg_root_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_dlg_white"
-        android:orientation="vertical"
-        android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/bg_dlg_white"
+        android:orientation="vertical">
 
         <RelativeLayout
             android:id="@id/dlg_title_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            >
 
             <TextView
                 android:id="@id/dlg_title_text"
                 style="@style/text_max_style"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/layout_min_margin"
+                android:layout_centerInParent="true"
                 android:layout_marginTop="@dimen/layout_min_margin"
-                android:textColor="@color/text_color_gray_24"
                 android:gravity="center"
-                android:layout_centerInParent="true" />
+                android:padding="@dimen/layout_min_margin"
+                android:textColor="@color/text_color_gray_24" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -38,9 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="@dimen/layout_min_margin"
-            android:layout_weight="1"
-            android:paddingLeft="@dimen/layout_mid_margin"
-            android:paddingRight="@dimen/layout_mid_margin">
+            android:layout_weight="1">
 
             <TextView
                 android:id="@id/dlg_msg_text"
@@ -49,6 +49,8 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:gravity="center"
+                android:paddingLeft="@dimen/layout_mid_margin"
+                android:paddingRight="@dimen/layout_mid_margin"
                 android:textColor="@color/text_color_gray_68"
                 android:textSize="18sp" />
 

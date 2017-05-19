@@ -29,4 +29,5 @@ dependencies {
     })
     testCompile 'junit:junit:4.12'
     compile project(':UILibrary')
+    compile 'com.prolificinteractive:material-calendarview:1.4.3'
 }
