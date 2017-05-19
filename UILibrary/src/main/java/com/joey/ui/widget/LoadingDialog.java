@@ -22,21 +22,25 @@ public class LoadingDialog {
     private TextView tvMsg;
 
     public LoadingDialog(Context context) {
-        init(context, true);
+        init(context, true, false);
     }
 
     public LoadingDialog(Context context, boolean cancel) {
-        init(context, cancel);
+        init(context, cancel, false);
     }
 
-    public void init(Context context, boolean cancel) {
+    public LoadingDialog(Context context, boolean cancel, boolean touchOnCancel) {
+        init(context, cancel, touchOnCancel);
+    }
+
+    public void init(Context context, boolean cancel, boolean touchOnCancel) {
         rootView = View.inflate(context, R.layout.dlg_loading, null);
         tvMsg = (TextView) rootView.findViewById(R.id.dlg_msg_text);
         loadingImg = (ImageView) rootView.findViewById(R.id.dlg_loading_img);
         drawable = (AnimationDrawable) loadingImg.getBackground();
         loadingDlg = new Dialog(context, R.style.dialog_transparent);
         loadingDlg.setContentView(rootView);
-        loadingDlg.setCanceledOnTouchOutside(true);
+        loadingDlg.setCanceledOnTouchOutside(touchOnCancel);
         loadingDlg.setCancelable(cancel);
     }
 
