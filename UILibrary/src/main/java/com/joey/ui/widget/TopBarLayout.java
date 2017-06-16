@@ -337,6 +337,10 @@ public class TopBarLayout extends RelativeLayout {
         }
     }
 
+    public Editable getInputText() {
+        return searchEdit.getText();
+    }
+
     private void showSearchBar() {
         title.setVisibility(GONE);
         searchLayout.setVisibility(VISIBLE);
