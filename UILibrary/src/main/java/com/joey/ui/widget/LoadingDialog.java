@@ -2,6 +2,7 @@ package com.joey.ui.widget;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.drawable.AnimationDrawable;
 import android.view.View;
 import android.widget.ImageView;
@@ -46,6 +47,10 @@ public class LoadingDialog {
 
     public void setCancelable(boolean cancel) {
         loadingDlg.setCancelable(cancel);
+    }
+
+    public void setOnCancelListener(DialogInterface.OnCancelListener listener) {
+        loadingDlg.setOnCancelListener(listener);
     }
 
     public void setCanceledOnTouchOutside(boolean cancle) {
