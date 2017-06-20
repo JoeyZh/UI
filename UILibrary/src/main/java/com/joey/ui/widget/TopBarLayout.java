@@ -153,8 +153,6 @@ public class TopBarLayout extends RelativeLayout {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (searchEdit.getText().toString().isEmpty())
-                    return;
                 startSearch();
 //                onSearch();
             }
@@ -316,15 +314,15 @@ public class TopBarLayout extends RelativeLayout {
 
     private void startSearch() {
         LogUtils.i("startSearch onSearching = " + onSearching);
-        if (onSearching)
-            return;
-        showSearchBar();
-        onSearching = true;
         if (searchListener != null) {
             searchListener.startSearch();
         }
+        if (onSearching)
+            return;
+        onSearching = true;
+        showSearchBar();
         //表示EditText可以支持输入
-        if (searchEdit.hasFocusable())
+        if (searchEdit.hasFocusable()&&!searchEdit.getText().toString().isEmpty())
             setRightText(android.R.string.cancel);
     }
 

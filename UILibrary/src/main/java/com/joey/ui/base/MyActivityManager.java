@@ -72,4 +72,13 @@ public class MyActivityManager {
             }
         }
     }
+
+    public void popUntilActivity(Class<?> cls){
+        while (!activityStack.isEmpty()){
+            if(currentActivity().getClass().equals(cls)){
+                return;
+            }
+            popActivity(currentActivity());
+        }
+    }
 }

@@ -1,6 +1,7 @@
 package com.joey.ui.base;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.drawable.AnimationDrawable;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -34,7 +36,7 @@ public abstract class BaseActivity extends FragmentActivity implements ResponseH
     private FrameLayout mFl_container;
     private Button btn_reload;
     private RelativeLayout rl_loading, rl_error_cart;
-    private LoadingDialog loadingDlg;
+    LoadingDialog loadingDlg;
     LoadingPopUp loadingPro;
     protected TopBarLayout topBarLayout;
     // 网络请求
@@ -140,6 +142,10 @@ public abstract class BaseActivity extends FragmentActivity implements ResponseH
     private void initLoadingDlg() {
         loadingDlg = new LoadingDialog(this);
         loadingPro = new LoadingPopUp(this);
+    }
+
+    public void setDialogCancelListener(DialogInterface.OnCancelListener cancelListener) {
+        loadingDlg.setOnCancelListener(cancelListener);
     }
 
     public void showDialog(boolean cancel) {

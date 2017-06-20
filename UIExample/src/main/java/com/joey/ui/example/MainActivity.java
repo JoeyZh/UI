@@ -87,7 +87,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 showJDialog();
                 break;
             case R.id.tv_upload:
-                test();
+                testHttpPost();
                 break;
         }
     }
@@ -129,5 +129,23 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 dismissDialog();
             }
         }, files);
+    }
+
+    private void testHttpPost(){
+        HttpRequestManager manager = new HttpRequestManager(this);
+        HashMap<String,String> map = new HashMap<>();
+        manager.httpRequest("", "http://192.168.1.150:9999/CP_EAM/app/checkoutVersion.action",
+                map
+                , new ResponseListener<Object>(null) {
+                    @Override
+                    public void onSuccess(Object o, int status) {
+
+                    }
+
+                    @Override
+                    public void onError(ResponseError error, int status) {
+
+                    }
+                });
     }
 }
