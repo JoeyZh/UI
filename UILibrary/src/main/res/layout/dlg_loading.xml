@@ -31,7 +31,6 @@
             android:layout_below="@+id/dlg_loading_img"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/layout_max_margin"
-            android:singleLine="true"
             android:text="@string/waiting"
             android:textSize="@dimen/text_small_size" />
 

@@ -164,7 +164,7 @@ public abstract class BaseActivity extends FragmentActivity implements ResponseH
     }
 
     public void showDialog() {
-        loadingDlg.showDialog();
+        loadingDlg.showDialog(R.string.loading);
     }
 
     public void showDialog(String message) {
