@@ -58,4 +58,12 @@ public class HybridViewFragment extends Fragment {
         we.loadUrl(good_desc);
     }
 
+    public boolean canGoback() {
+        return we.canGoBack();
+    }
+
+    public void goBack(){
+        we.goBack();
+    }
+
 }
