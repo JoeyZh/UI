@@ -9,6 +9,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.joey.protocol.ResponseHandler;
+import com.joey.utils.LogUtils;
 
 /**
  * Created by Administrator on 2016/11/16.
@@ -44,7 +45,7 @@ public class HybridWebClient extends WebViewClient {
 
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
-//        KLog.a(" 跳转的url = " + url);
+        LogUtils.a(" 跳转的url = " + url);
         if (url.indexOf(HybridParser.GOTO_DETAIL_URL) > 0) {
             if (responseHandler != null)
                 responseHandler.onSuccess();
