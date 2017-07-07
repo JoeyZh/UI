@@ -27,10 +27,10 @@ public abstract class ResponseListener<T> implements Response.Listener<String> {
         LogUtils.a(getClass().getName(), "convert obj = " + s);
         try {
             JSONObject obj = JSON.parseObject(s);
-            int status = obj.getInteger("resultCode");
-            String msg = obj.getString("resultMessage");
+            int status = obj.getInteger(HttpRequestManager.ERROR_CODE_KEY);
+            String msg = obj.getString(HttpRequestManager.ERROR_MSG_KEY);
             if (1 == status) {
-                T t = (T) obj.get("result");
+                T t = (T) obj.get(HttpRequestManager.ERROR_RESULT_KEY);
                 LogUtils.a(getClass().getName(), "result = " + t.toString());
                 onSuccess(t, status);
                 if (handler != null)

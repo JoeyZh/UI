@@ -30,6 +30,11 @@ import java.util.Map;
  */
 public class HttpRequestManager {
 
+    protected static String ERROR_CODE_KEY = "resultCode";
+    protected static String ERROR_MSG_KEY = "resultMessage";
+    protected static String ERROR_RESULT_KEY = "result";
+
+
     private NetUtils mNetUtils;
 
     private HttpUtils httpUtils;
@@ -46,6 +51,19 @@ public class HttpRequestManager {
 
     public static void setDomainUrl(String url) {
         domainUrl = url;
+    }
+
+    /**
+     *  初始化解析json的关键key值
+     *  json格式为 {"codeKey":"","msgKey":"","resultKey":{}}
+     * @param codeKey
+     * @param msgKey
+     * @param resultKey
+     */
+    public static void initReponseKey(String codeKey,String msgKey,String resultKey) {
+        ERROR_CODE_KEY = codeKey;
+        ERROR_MSG_KEY = msgKey;
+        ERROR_RESULT_KEY = resultKey;
     }
 
     public static void setOffline(boolean isOffline) {
