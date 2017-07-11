@@ -21,12 +21,16 @@ import com.lidroid.xutils.http.client.multipart.content.FileBody;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     View tv1;
     View tv2;
     View tv3;
+    View tv4;
+    String cookieKey = "";
+    String cookie = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +40,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         tv1 = findViewById(R.id.tv_dlg);
         tv2 = findViewById(R.id.tv_calendar);
         tv3 = findViewById(R.id.tv_upload);
+        tv4 = findViewById(R.id.tv_cookies);
         tv1.setOnClickListener(this);
         tv2.setOnClickListener(this);
         tv3.setOnClickListener(this);
+        tv4.setOnClickListener(this);
         topBarLayout.setLeftResource(-1);
         topBarLayout.setTitle("测试呀");
         topBarLayout.showNotice("ceshishihiho");
@@ -89,6 +95,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.tv_upload:
                 testHttpPost();
                 break;
+            case R.id.tv_cookies:
+                testCookies();
+                break;
         }
     }
 
@@ -131,10 +140,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }, files);
     }
 
-    private void testHttpPost(){
+    private void testHttpPost() {
         HttpRequestManager manager = new HttpRequestManager(this);
-        HashMap<String,String> map = new HashMap<>();
-        manager.httpRequest("", "http://192.168.1.150:9999/CP_EAM/app/checkoutVersion.action",
+        HashMap<String, String> map = new HashMap<>();
+        map.put("AccountID", "jwj");
+        map.put("Password", "123456");
+        manager.httpRequest("", "http://192.168.1.150:8081/home/GetAreaByCheckUser?temp=2017-07-11",
                 map
                 , new ResponseListener<Object>(null) {
                     @Override
@@ -145,6 +156,39 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     @Override
                     public void onError(ResponseError error, int status) {
 
+                    }
+
+                    @Override
+                    public void getCookies(String key, String value) {
+                        super.getCookies(key, value);
+                        cookieKey = key;
+                        cookie = value;
+                    }
+                });
+    }
+
+    private void testCookies() {
+        HttpRequestManager manager = new HttpRequestManager(this);
+        HashMap<String, String> map = new HashMap<>();
+        manager.httpRequest("", "http://192.168.1.150:8081/home/AreaSelection",
+                map
+                , new ResponseListener<Object>(null) {
+                    @Override
+                    public void onSuccess(Object o, int status) {
+
+                    }
+
+                    @Override
+                    public void onError(ResponseError error, int status) {
+
+                    }
+
+                    @Override
+                    public Map<String, String> getHeaders() {
+                        Map<String, String> header = new HashMap<String, String>();
+                        header.put("Cookie", cookieKey + "=" + cookie + "; ");
+                        LogUtils.a(header.toString());
+                        return header;
                     }
                 });
     }

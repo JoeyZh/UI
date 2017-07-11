@@ -39,7 +39,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:gravity="center"
-                    android:text="上传" />
+                    android:text="http测试" />
+
+                <TextView
+                    android:id="@+id/tv_cookies"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:text="cookies测试" />
 
             </LinearLayout>
         </ScrollView>

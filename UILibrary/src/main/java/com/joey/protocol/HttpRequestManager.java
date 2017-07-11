@@ -3,6 +3,7 @@ package com.joey.protocol;
 import android.content.Context;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -43,6 +44,9 @@ public class HttpRequestManager {
     private static boolean offline;
     private static String domainUrl = "";
 
+    private static Map<String, String> header;
+    private final String SESSION_KEY = "ASP.NET_SessionId";
+
     public HttpRequestManager(Context context) {
         this.context = context;
         mNetUtils = NetUtils.getInstance(context);
@@ -54,13 +58,14 @@ public class HttpRequestManager {
     }
 
     /**
-     *  初始化解析json的关键key值
-     *  json格式为 {"codeKey":"","msgKey":"","resultKey":{}}
+     * 初始化解析json的关键key值
+     * json格式为 {"codeKey":"","msgKey":"","resultKey":{}}
+     *
      * @param codeKey
      * @param msgKey
      * @param resultKey
      */
-    public static void initReponseKey(String codeKey,String msgKey,String resultKey) {
+    public static void initReponseKey(String codeKey, String msgKey, String resultKey) {
         ERROR_CODE_KEY = codeKey;
         ERROR_MSG_KEY = msgKey;
         ERROR_RESULT_KEY = resultKey;
@@ -82,7 +87,6 @@ public class HttpRequestManager {
             method = Request.Method.GET;
         }
         LogUtils.a("url：" + url + "[[[+ map: " + params.toString());
-
         StringRequest request = new StringRequest(method,
                 url,
                 responseListener,
@@ -97,8 +101,19 @@ public class HttpRequestManager {
             protected Map<String, String> getParams() throws AuthFailureError {
                 return params;
             }
-        };
 
+            @Override
+            protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                responseListener.parseResponseHeader(response.headers);
+                return super.parseNetworkResponse(response);
+
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                return responseListener.getHeaders();
+            }
+        };
         mNetUtils.addToRequestQueue(request);
     }
 
