@@ -340,7 +340,7 @@ public class TopBarLayout extends RelativeLayout {
     }
 
     private void showSearchBar() {
-        title.setVisibility(GONE);
+//        title.setVisibility(GONE);
         searchLayout.setVisibility(VISIBLE);
     }
 

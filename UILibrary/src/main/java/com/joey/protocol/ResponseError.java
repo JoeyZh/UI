@@ -7,9 +7,10 @@ public class ResponseError {
 
     private int status;
     private String message;
-    public static final int ERROR_BY_PARSE = 1000;
-    public static final int ERRPR_BY_NET = 404;
-    public static final int ERROR_OFF_LINE = 405;
+    public static final int ERROR_BY_PARSE = -3;
+    public static final int ERRPR_BY_NET = -2;
+    public static final int ERRPR_NO_RESPONCE = -1;
+    public static final int ERROR_OFF_LINE = -4;
     public String json;
 
     public ResponseError(int status, String message) {

@@ -93,7 +93,12 @@ public class HttpRequestManager {
                 new com.android.volley.Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
-                        ResponseError error = new ResponseError(volleyError.networkResponse.statusCode, "" + volleyError.networkResponse.statusCode);
+                        ResponseError error;
+                        if (volleyError == null||volleyError.networkResponse == null) {
+                            error = new ResponseError(ResponseError.ERRPR_NO_RESPONCE, "主人，服务器正在偷懒！");
+                        } else {
+                            error = new ResponseError(volleyError.networkResponse.statusCode, "" + volleyError.networkResponse.statusCode);
+                        }
                         responseListener.onError(error, ResponseError.ERRPR_BY_NET);
                     }
                 }) {
