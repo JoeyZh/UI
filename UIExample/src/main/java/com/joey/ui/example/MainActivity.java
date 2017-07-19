@@ -17,9 +17,11 @@ import com.joey.ui.base.BaseActivity;
 import com.joey.ui.widget.JAlertDialog;
 import com.joey.utils.LogUtils;
 import com.joey.utils.NetWorkUtil;
+import com.joey.utils.TimeUtils;
 import com.lidroid.xutils.http.client.multipart.content.FileBody;
 
 import java.io.File;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -141,11 +143,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void testHttpPost() {
-        HttpRequestManager manager = new HttpRequestManager(this);
+        HttpRequestManager.initReponseKey("errcode","errmsg","result");
+        final HttpRequestManager manager = new HttpRequestManager(this);
         HashMap<String, String> map = new HashMap<>();
         map.put("AccountID", "jwj");
         map.put("Password", "123456");
-        manager.httpRequest("", "http://192.168.1.150:8081/home/GetAreaByCheckUser?temp=2017-07-11",
+        String dateStr = TimeUtils.convertDateToStr(new Date(System.currentTimeMillis()),TimeUtils.FORMATTER_DATE);
+        manager.httpRequest("", "http://alp.joeyzh.xyz:8081/home/GetAreaByCheckUser?temp="+dateStr,
                 map
                 , new ResponseListener<Object>(null) {
                     @Override
@@ -159,10 +163,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     }
 
                     @Override
-                    public void getCookies(String key, String value) {
-                        super.getCookies(key, value);
-                        cookieKey = key;
-                        cookie = value;
+                    public void getCookies(Map<String,String> map) {
+                        super.getCookies(map);
+                        cookieKey ="ASP.NET_SessionId";
+                        cookie = map.get(cookieKey);
+                        LogUtils.a("cookies = "+map.toString());
+
                     }
                 });
     }
@@ -170,11 +176,21 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private void testCookies() {
         HttpRequestManager manager = new HttpRequestManager(this);
         HashMap<String, String> map = new HashMap<>();
-        manager.httpRequest("", "http://192.168.1.150:8081/home/AreaSelection",
+//        map.put("AreaID", "29");
+        //AreaSelectionForApp
+        //home/DeliveryOrdersByUnLoadForApp
+        manager.httpRequest("", "http://alp.joeyzh.xyz:8081/home/AreaSelectionForApp",
                 map
-                , new ResponseListener<Object>(null) {
+                , new ResponseListener<JSONArray>(null) {
+
                     @Override
-                    public void onSuccess(Object o, int status) {
+                    public void onResponse(String s) {
+                        super.onResponse(s);
+                    }
+
+                    @Override
+                    public void onSuccess(JSONArray o, int status) {
+                        LogUtils.i("array "+o.toString());
 
                     }
 

@@ -29,12 +29,14 @@ public abstract class ResponseListener<T> implements Response.Listener<String> {
     }
 
     private void convert(String s) {
-        LogUtils.a(getClass().getName(), "convert obj = " + s);
+        ResponseError error = null;
         try {
+            LogUtils.a(getClass().getName(), "convert obj = " + s);
             JSONObject obj = JSON.parseObject(s);
             int status = obj.getInteger(HttpRequestManager.ERROR_CODE_KEY);
             String msg = obj.getString(HttpRequestManager.ERROR_MSG_KEY);
-            if (1 == status) {
+            error = new ResponseError(status, msg);
+            if (1 == status || 0 == status) {
                 T t = (T) obj.get(HttpRequestManager.ERROR_RESULT_KEY);
                 LogUtils.a(getClass().getName(), "result = " + t.toString());
                 onSuccess(t, status);
@@ -42,15 +44,16 @@ public abstract class ResponseListener<T> implements Response.Listener<String> {
                     handler.onSuccess();
                 return;
             }
-            ResponseError error = new ResponseError(status, msg);
             onError(error, status);
             if (handler != null)
                 handler.onError();
             return;
         } catch (Exception e) {
-            ResponseError error = new ResponseError(ResponseError.ERROR_BY_PARSE, e.getMessage());
+            if (error == null) {
+                error = new ResponseError(ResponseError.ERROR_BY_PARSE, e.getMessage());
+            }
             error.setJson(s);
-            onError(error, -1);
+            onError(error, ResponseError.ERROR_BY_PARSE);
             if (handler != null)
                 handler.onError();
             LogUtils.e(getClass().getName(), "error =" + e.getMessage());
@@ -68,16 +71,23 @@ public abstract class ResponseListener<T> implements Response.Listener<String> {
             String cookie = headers.get(SET_COOKIE_KEY);
             if ((cookie.length()) > 0 && (!cookie.contains("saeut"))) {
                 String[] splitCookie = cookie.split(";");
-                String[] splitSessionId = splitCookie[0].split("=");
-                cookie = splitSessionId[1];
-                String key = splitSessionId[0];
-                getCookies(key,cookie);
+                HashMap<String, String> map = new HashMap<>();
+
+                for (int i = 0; i < splitCookie.length; i++) {
+                    String[] splitSessionId = splitCookie[i].split("=");
+                    if (splitSessionId.length <= 1) {
+                        continue;
+                    }
+                    map.put(splitSessionId[0], splitSessionId[1]);
+                }
+                getCookies(map);
             }
 
         }
     }
 
-    public void getCookies(String key,String value){
+    public void getCookies(Map<String, String> map) {
+
 
     }
 
