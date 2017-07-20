@@ -2,6 +2,7 @@ package com.joey.ui.widget;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -312,6 +313,13 @@ public class TopBarLayout extends RelativeLayout {
         startSearch();
     }
 
+    public void setTitleDrawableLeft(int res) {
+        Drawable drwLeft = getResources().getDrawable(res);
+        drwLeft.setBounds(0, 0, drwLeft.getMinimumWidth(), drwLeft.getMinimumHeight());
+        title.setCompoundDrawablePadding(DensityUtil.dip2px(getContext(), 10));
+        title.setCompoundDrawables(drwLeft, null, null, null);
+    }
+
     private void startSearch() {
         LogUtils.i("startSearch onSearching = " + onSearching);
         if (searchListener != null) {
@@ -322,7 +330,7 @@ public class TopBarLayout extends RelativeLayout {
         onSearching = true;
         showSearchBar();
         //表示EditText可以支持输入
-        if (searchEdit.hasFocusable()&&!searchEdit.getText().toString().isEmpty())
+        if (searchEdit.hasFocusable() && !searchEdit.getText().toString().isEmpty())
             setRightText(android.R.string.cancel);
     }
 
