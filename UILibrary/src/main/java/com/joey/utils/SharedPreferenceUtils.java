@@ -27,7 +27,7 @@ public class SharedPreferenceUtils {
     public void init(Context context, String name) {
         mContext = context;
         preferences = context.getSharedPreferences(name,
-                mContext.MODE_WORLD_READABLE);
+                mContext.MODE_PRIVATE);
         editor = preferences.edit();
     }
 

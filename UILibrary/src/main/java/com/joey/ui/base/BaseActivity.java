@@ -2,6 +2,7 @@ package com.joey.ui.base;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.drawable.AnimationDrawable;
@@ -49,7 +50,6 @@ public abstract class BaseActivity extends FragmentActivity implements ResponseH
         super.onCreate(savedInstanceState);
         MyActivityManager.getActivityManager().pushActivity(this);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-
         initLoadingDlg();
         initSuperView();
     }

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONArray;
@@ -89,6 +90,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_calendar:
+                int i = 0;
+                LogUtils.i("" + (100 / i));
                 gotoCalendar();
                 break;
             case R.id.tv_dlg:
@@ -143,13 +146,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void testHttpPost() {
-        HttpRequestManager.initReponseKey("errcode","errmsg","result");
+        HttpRequestManager.initReponseKey("errcode", "errmsg", "result");
         final HttpRequestManager manager = new HttpRequestManager(this);
         HashMap<String, String> map = new HashMap<>();
         map.put("AccountID", "jwj");
         map.put("Password", "123456");
-        String dateStr = TimeUtils.convertDateToStr(new Date(System.currentTimeMillis()),TimeUtils.FORMATTER_DATE);
-        manager.httpRequest("", "http://alp.joeyzh.xyz:8081/home/GetAreaByCheckUser?temp="+dateStr,
+        String dateStr = TimeUtils.convertDateToStr(new Date(System.currentTimeMillis()), TimeUtils.FORMATTER_DATE);
+        manager.httpRequest("", "http://alp.joeyzh.xyz:8081/home/GetAreaByCheckUser?temp=" + dateStr,
                 map
                 , new ResponseListener<Object>(null) {
                     @Override
@@ -163,11 +166,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     }
 
                     @Override
-                    public void getCookies(Map<String,String> map) {
+                    public void getCookies(Map<String, String> map) {
                         super.getCookies(map);
-                        cookieKey ="ASP.NET_SessionId";
+                        cookieKey = "ASP.NET_SessionId";
                         cookie = map.get(cookieKey);
-                        LogUtils.a("cookies = "+map.toString());
+                        LogUtils.a("cookies = " + map.toString());
 
                     }
                 });
@@ -190,7 +193,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
                     @Override
                     public void onSuccess(JSONArray o, int status) {
-                        LogUtils.i("array "+o.toString());
+                        LogUtils.i("array " + o.toString());
 
                     }
 
