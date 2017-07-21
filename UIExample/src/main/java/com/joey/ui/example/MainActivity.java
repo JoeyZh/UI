@@ -16,9 +16,11 @@ import com.joey.protocol.ResponseError;
 import com.joey.protocol.ResponseListener;
 import com.joey.ui.base.BaseActivity;
 import com.joey.ui.widget.JAlertDialog;
+import com.joey.ui.widget.TopBarLayout;
 import com.joey.utils.LogUtils;
 import com.joey.utils.NetWorkUtil;
 import com.joey.utils.TimeUtils;
+import com.joey.utils.ToastUtil;
 import com.lidroid.xutils.http.client.multipart.content.FileBody;
 
 import java.io.File;
@@ -39,7 +41,33 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        topBarLayout.setTitle("测试");
+        topBarLayout.showSearchBar("输入测试内容");
+        topBarLayout.setOnSearchListener(new TopBarLayout.OnSearchListener() {
+            @Override
+            public void onSearch(String key) {
+                ToastUtil.show(getApplicationContext(), "开始搜索" + key);
+            }
 
+            @Override
+            public void stopSearch() {
+
+            }
+
+            @Override
+            public void startSearch() {
+
+            }
+        });
+        topBarLayout.setOnItemClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (v.getId()) {
+                    case R.id.top_right_layout:
+                        topBarLayout.onSearch();
+                }
+            }
+        });
         tv1 = findViewById(R.id.tv_dlg);
         tv2 = findViewById(R.id.tv_calendar);
         tv3 = findViewById(R.id.tv_upload);
@@ -49,7 +77,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         tv3.setOnClickListener(this);
         tv4.setOnClickListener(this);
         topBarLayout.setLeftResource(-1);
-        topBarLayout.setTitle("测试呀");
         topBarLayout.showNotice("ceshishihiho");
         String test1 = "fjklsjfljk";
         String test2 = "189.234.2.443";

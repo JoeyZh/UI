@@ -53,7 +53,7 @@
                 android:minWidth="200dp"
                 android:visibility="gone">
 
-                <EditText
+                <com.joey.ui.widget.ClearableEditText
                     android:id="@+id/top_search_edit"
                     style="@style/edit_with_corner_style"
                     android:layout_width="match_parent"

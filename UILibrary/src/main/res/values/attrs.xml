@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <declare-styleable name="ClearableEditText">
+        <attr name="clear_img" format="reference" />
+    </declare-styleable>
+
+</resources>
