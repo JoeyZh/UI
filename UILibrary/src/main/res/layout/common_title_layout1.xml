@@ -44,6 +44,14 @@
             android:layout_toRightOf="@+id/top_left_layout"
             android:gravity="center">
 
+            <TextView
+                android:id="@+id/text_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textColor="#fff"
+                android:textSize="18sp" />
+
             <FrameLayout
                 android:id="@+id/top_search_layout"
                 android:layout_width="match_parent"
@@ -75,13 +83,6 @@
                     android:visibility="visible" />
             </FrameLayout>
 
-            <TextView
-                android:id="@+id/text_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:textColor="#fff"
-                android:textSize="18sp" />
 
         </RelativeLayout>
 

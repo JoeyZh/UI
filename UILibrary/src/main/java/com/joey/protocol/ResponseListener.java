@@ -18,10 +18,18 @@ public abstract class ResponseListener<T> implements Response.Listener<String> {
 
 
     private ResponseHandler handler;
+    private String resultKey;
 
     public ResponseListener(ResponseHandler handler) {
         this.handler = handler;
+        resultKey = HttpRequestManager.ERROR_RESULT_KEY;
     }
+
+    public ResponseListener(ResponseHandler handler, String paramKey) {
+        this.handler = handler;
+        resultKey = paramKey;
+    }
+
 
     @Override
     public void onResponse(String s) {
@@ -37,7 +45,7 @@ public abstract class ResponseListener<T> implements Response.Listener<String> {
             String msg = obj.getString(HttpRequestManager.ERROR_MSG_KEY);
             error = new ResponseError(status, msg);
             if (1 == status || 0 == status) {
-                T t = (T) obj.get(HttpRequestManager.ERROR_RESULT_KEY);
+                T t = (T) obj.get(resultKey);
                 LogUtils.a(getClass().getName(), "result = " + t.toString());
                 onSuccess(t, status);
                 if (handler != null)
