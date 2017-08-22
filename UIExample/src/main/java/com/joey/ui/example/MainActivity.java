@@ -17,6 +17,7 @@ import com.joey.protocol.ResponseListener;
 import com.joey.ui.base.BaseActivity;
 import com.joey.ui.widget.JAlertDialog;
 import com.joey.ui.widget.TopBarLayout;
+import com.joey.utils.FileUtil;
 import com.joey.utils.LogUtils;
 import com.joey.utils.NetWorkUtil;
 import com.joey.utils.TimeUtils;
@@ -128,13 +129,20 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 testHttpPost();
                 break;
             case R.id.tv_cookies:
-                testCookies();
+                testFileSize();
+//                testCookies();
                 break;
         }
     }
 
     private void gotoCalendar() {
         startActivity(new Intent(MainActivity.this, CalenderActivity.class));
+    }
+
+    private void testFileSize(){
+        String dir =Environment.getExternalStorageDirectory().getPath() + "/EAM"+"/knowledge";
+        File file = new File(dir).listFiles()[0];
+        ToastUtil.show(getApplicationContext(), FileUtil.calcSizeString(file.length()));
     }
 
     private void test() {

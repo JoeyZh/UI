@@ -133,6 +133,13 @@ public class FileUtil {
         }
     }
 
+    public static boolean mkdirs(File file) {
+        if (file.exists()) {
+            return true;
+        }
+        return file.mkdirs();
+    }
+
     public static void clearDir(String fileDir) {
         File file = new File(fileDir);
         clearDir(file);
@@ -291,5 +298,23 @@ public class FileUtil {
             sum += calcSize(file);
         }
         return sum;
+    }
+
+    /**
+     * 计算目录下所有文件所占大小
+     */
+    public static String calcSizeString(long size) {
+        long original = size;
+        float percent = 0;
+        String tags[] = {"B", "KB", "MB", "GB"};
+        int i = 0;
+        while (size >= 1024) {
+            original = size;
+            size = original >> 10;
+            i++;
+        }
+        if (i > 0)
+            percent = (original - (size << 10)) / 1024.0f;
+        return String.format("%.2f %s", (size + percent), tags[i]);
     }
 }
