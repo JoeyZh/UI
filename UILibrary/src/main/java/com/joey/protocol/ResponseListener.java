@@ -45,6 +45,12 @@ public abstract class ResponseListener<T> implements Response.Listener<String> {
             String msg = obj.getString(HttpRequestManager.ERROR_MSG_KEY);
             error = new ResponseError(status, msg);
             if (1 == status || 0 == status) {
+                if (obj.get(resultKey) == null) {
+                    onSuccess(null, status);
+                    if (handler != null)
+                        handler.onSuccess();
+                    return;
+                }
                 T t = (T) obj.get(resultKey);
                 LogUtils.a(getClass().getName(), "result = " + t.toString());
                 onSuccess(t, status);
@@ -57,14 +63,19 @@ public abstract class ResponseListener<T> implements Response.Listener<String> {
                 handler.onError();
             return;
         } catch (Exception e) {
-            if (error == null) {
-                error = new ResponseError(ResponseError.ERROR_BY_PARSE, e.getMessage());
-            }
-            error.setJson(s);
-            onError(error, ResponseError.ERROR_BY_PARSE);
-            if (handler != null)
-                handler.onError();
             LogUtils.e(getClass().getName(), "error =" + e.getMessage());
+            try {
+                if (error == null) {
+                    error = new ResponseError(ResponseError.ERROR_BY_PARSE, e.getMessage());
+                }
+                error.setJson(s);
+                onError(error, ResponseError.ERROR_BY_PARSE);
+                if (handler != null)
+                    handler.onError();
+            } catch (Exception e2) {
+
+            }
+
             return;
         }
     }
