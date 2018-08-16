@@ -14,7 +14,7 @@ android {
         minSdkVersion 11
         targetSdkVersion 23
         versionCode 1
-        versionName "1.0"
+        versionName versionJar
     }
     buildTypes {
         release {
@@ -59,7 +59,7 @@ task makeJar(type: Copy) {
 
     include(libraryName + '-release.aar')
     //重命名
-    rename(libraryName + '-release.aar', fileName + '.jar')
+    rename(libraryName + '-release.aar', fileName + '.aar')
 
 
 }

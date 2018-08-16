@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -35,6 +36,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     View tv2;
     View tv3;
     View tv4;
+    View tv5;
+    View tv6;
     String cookieKey = "";
     String cookie = "";
 
@@ -43,6 +46,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         topBarLayout.setTitle("测试");
+        // 展示搜索栏，如果不展示，不用调用
         topBarLayout.showSearchBar("输入测试内容");
         topBarLayout.setOnSearchListener(new TopBarLayout.OnSearchListener() {
             @Override
@@ -60,32 +64,40 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
             }
         });
+//        标题栏左右按钮点击监听
         topBarLayout.setOnItemClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switch (v.getId()) {
+                    // 右侧按钮监听
                     case R.id.top_right_layout:
                         topBarLayout.onSearch();
+
+                        break;
+                    case R.id.top_left_layout:
+//                        左侧按钮点击
+                        break;
                 }
             }
         });
         tv1 = findViewById(R.id.tv_dlg);
-        tv2 = findViewById(R.id.tv_calendar);
+        tv2 = findViewById(R.id.tv_list);
         tv3 = findViewById(R.id.tv_upload);
-        tv4 = findViewById(R.id.tv_cookies);
+        tv4 = findViewById(R.id.tv_recycler);
+        tv5 = findViewById(R.id.tv_search);
+        tv6 = findViewById(R.id.tv_calender);
         tv1.setOnClickListener(this);
         tv2.setOnClickListener(this);
         tv3.setOnClickListener(this);
         tv4.setOnClickListener(this);
+        tv5.setOnClickListener(this);
+        tv6.setOnClickListener(this);
+        //标题栏左侧按钮隐藏
         topBarLayout.setLeftResource(-1);
-        topBarLayout.showNotice("ceshishihiho");
-        String test1 = "fjklsjfljk";
-        String test2 = "189.234.2.443";
-        String test3 = "189.234.2.123";
-
-        LogUtils.a(test1 + " is Ip :" + NetWorkUtil.isIP(test1));
-        LogUtils.a(test2 + " is Ip :" + NetWorkUtil.isIP(test2));
-        LogUtils.a(test3 + " is Ip :" + NetWorkUtil.isIP(test3));
+        // 设置标题栏左侧按钮
+//        topBarLayout.setLeftResource(R.mipmap.ic_back);
+        // 这是提醒
+        topBarLayout.showNotice("这是提醒");
     }
 
 
@@ -93,7 +105,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         View view = View.inflate(this, R.layout.dlg_add_spare_part, null);
         JAlertDialog dialog = new JAlertDialog.Builder(MainActivity.this)
                 .setContentView(view)
-//                .setTitle("dialog")
+                .setTitle("dialog")
                 .setNegativeButton("中立", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -117,35 +129,39 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.tv_calendar:
-                int i = 0;
-                LogUtils.i("" + (100 / i));
-                gotoCalendar();
+            case R.id.tv_list:
+                startActivity(new Intent(MainActivity.this, ListActivity.class));
                 break;
             case R.id.tv_dlg:
                 showJDialog();
                 break;
             case R.id.tv_upload:
                 testHttpPost();
-                break;
-            case R.id.tv_cookies:
-                testFileSize();
+//                testUpload();
 //                testCookies();
+                break;
+            case R.id.tv_recycler:
+                startActivity(new Intent(MainActivity.this, TestRecycleActivity.class));
+                break;
+
+            case R.id.tv_search:
+                topBarLayout.onSearch();
+                break;
+
+            case R.id.tv_calender:
+                startActivity(new Intent(MainActivity.this,CalenderActivity.class));
                 break;
         }
     }
 
-    private void gotoCalendar() {
-        startActivity(new Intent(MainActivity.this, CalenderActivity.class));
-    }
-
-    private void testFileSize(){
-        String dir =Environment.getExternalStorageDirectory().getPath() + "/EAM"+"/knowledge";
+    private void testFileSize() {
+        String dir = Environment.getExternalStorageDirectory().getPath() + "/EAM" + "/knowledge";
         File file = new File(dir).listFiles()[0];
         ToastUtil.show(getApplicationContext(), FileUtil.calcSizeString(file.length()));
     }
 
-    private void test() {
+
+    private void testUpload() {
         showDialog("正在上传。。。");
         String url = "http://192.168.1.132:8080/EAM/exceptionSubmit/saveExceptionSubmit.action";
         String json = "{\"exceptionSubmitId\":\"\",\"equipmentPartId\":\"41\",\"equipmentId\":\"1010103\",\"resourceType\":\"yx\",\"submitContent\":\"测试\",\"submitUserId\":\"101\",\"deptId\":\"01\"}";

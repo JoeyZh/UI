@@ -3,6 +3,7 @@ package com.joey.ui.example;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.android.volley.AuthFailureError;
@@ -23,7 +24,7 @@ public class TestRecycleActivity extends BaseActivity {
 
     private RefreshRecycleView recycleViewFresh;
     private GuoBiMarketAdapter adapterRecycler;
-    private String [] array = {"1","2","3","4","5","6","7","8"};
+    private String[] array = {"1", "2", "3", "4", "5", "6", "7", "8"};
     private int page = 0;
     private Handler handler = new Handler();
     private Runnable refreshCompleteRunnable = new Runnable() {
@@ -36,12 +37,13 @@ public class TestRecycleActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-      setContentView(R.layout.layout_recycle);
+        setContentView(R.layout.layout_recycle);
         initView();
-        recycleViewFresh = (RefreshRecycleView)findViewById(R.id.refresh_cycle);
+        topBarLayout.setTitle("RecyclerTest");
+        recycleViewFresh = (RefreshRecycleView) findViewById(R.id.refresh_cycle);
         adapterRecycler = new GuoBiMarketAdapter(this, array);
         adapterRecycler.setViewType(R.layout.item_test);
-        GridLayoutManager layoutManager = new GridLayoutManager(this, 6);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recycleViewFresh.setLayoutManager(layoutManager);
         recycleViewFresh.setLoadingListener(new RefreshRecycleView.LoadingListener() {
             @Override
