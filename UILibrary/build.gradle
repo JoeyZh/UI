@@ -1,8 +1,13 @@
 apply plugin: 'com.android.library'
 
+def versionJar = "1.0.0"
+def suffix = "alp"
+def libraryId = "com.joey.uilib"
+def libraryName = "UILibrary"
+
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    buildToolsVersion '26.0.2'
     useLibrary 'org.apache.http.legacy'
     defaultConfig {
 //        applicationId "com.joey"
@@ -31,6 +36,9 @@ dependencies {
 
 
 task makeJar(type: Copy) {
+
+    def fileName = libraryId + "." + suffix + "_v" + versionJar
+
     //删除存在的
     delete 'build/libs/*'
     //设置拷贝的文件路径
@@ -43,16 +51,15 @@ task makeJar(type: Copy) {
     //（我们只关心classes.jar这个文件）
     include('classes.jar')
     //重命名
-    rename('classes.jar', 'joey-ui-v1.0.jar')
-
+    rename('classes.jar', fileName + '.jar')
 
     from('build/outputs/aar/')
 
     into('build/libs/')
 
-    include('UILibrary-release.aar')
+    include(libraryName + '-release.aar')
     //重命名
-    rename('UILibrary-release.aar', 'joey-ui-v1.0.aar')
+    rename(libraryName + '-release.aar', fileName + '.jar')
 
 
 }
