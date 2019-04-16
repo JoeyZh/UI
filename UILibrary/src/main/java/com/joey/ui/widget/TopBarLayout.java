@@ -4,21 +4,15 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.AttributeSet;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.joey.R;
 import com.joey.utils.DensityUtil;
-import com.joey.utils.LogUtils;
 
 /**
  * 统一的titleBar
@@ -33,9 +27,7 @@ public class TopBarLayout extends RelativeLayout {
     private TextView tvRight;
     private ImageView imgBtnLeft;
     private ImageView imgBtnRight;
-    private EditText searchEdit;
-    private ImageView searchBtn;
-    private View searchLayout;
+    private SearchBarLayout searchLayout;
     private View rightCustomView;
     private View leftCustomView;
     private int colorRes = -1;
@@ -44,19 +36,7 @@ public class TopBarLayout extends RelativeLayout {
     private ViewGroup titleCenter;
     private TextView tvNotice;
     private View topLayout;
-
-
-    public boolean isOnSearching() {
-        return onSearching;
-    }
-
-    public void setOnSearching(boolean onSearching) {
-        this.onSearching = onSearching;
-    }
-
-    private boolean onSearching;
     private OnClickListener mOnClickListener;
-    private OnSearchListener searchListener;
 
     public TopBarLayout(Context context) {
         super(context);
@@ -89,10 +69,7 @@ public class TopBarLayout extends RelativeLayout {
     }
 
     public void setSearchEditClick(OnClickListener liseer) {
-        showSearchBar();
-        searchEdit.setFocusable(false);
-        searchEdit.setOnClickListener(liseer);
-        searchBtn.setOnClickListener(liseer);
+        this.searchLayout.setSearchEditClick(liseer);
     }
 
     public void showNotice(CharSequence text) {
@@ -116,7 +93,7 @@ public class TopBarLayout extends RelativeLayout {
     }
 
     public void setOnSearchListener(OnSearchListener listener) {
-        this.searchListener = listener;
+        searchLayout.setOnSearchListener(listener);
     }
 
     private void init() {
@@ -131,48 +108,13 @@ public class TopBarLayout extends RelativeLayout {
         imgBtnLeft = (ImageView) root.findViewById(R.id.top_left_img_btn);
         leftView = root.findViewById(R.id.top_left_layout);
         rightView = root.findViewById(R.id.top_right_layout);
-
-        searchLayout = root.findViewById(R.id.top_search_layout);
-        searchBtn = (ImageView) root.findViewById(R.id.top_search_btn);
-        searchEdit = (EditText) root.findViewById(R.id.top_search_edit);
-//        searchBtn.setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                onSearch();
-//            }
-//        });
-        searchEdit.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                startSearch();
-//                onSearch();
-            }
-        });
-        searchEdit.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
-        searchEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-                    onSearch();
-                    return true;
-                }
-                return false;
-            }
-        });
+        searchLayout = (SearchBarLayout) root.findViewById(R.id.top_search_layout);
     }
 
     public void setTitle(CharSequence text) {
-        if (text == null)
+        if (text == null) {
             return;
+        }
         setVisibility(VISIBLE);
         title.setVisibility(VISIBLE);
         title.setText(text);
@@ -191,12 +133,13 @@ public class TopBarLayout extends RelativeLayout {
     }
 
     public void setSearchEditBackgroundResource(int resource) {
-        searchEdit.setBackgroundResource(resource);
+        this.searchLayout.setBackgroundResource(resource);
     }
 
     public void setTitle(int text) {
-        if (text <= 0)
+        if (text <= 0) {
             return;
+        }
         setVisibility(VISIBLE);
         title.setVisibility(VISIBLE);
         title.setText(text);
@@ -212,8 +155,9 @@ public class TopBarLayout extends RelativeLayout {
         tvLeft.setText(text);
         tvLeft.setVisibility(VISIBLE);
         imgBtnLeft.setVisibility(INVISIBLE);
-        if (leftCustomView != null)
+        if (leftCustomView != null){
             leftCustomView.setVisibility(GONE);
+        }
     }
 
     public void setLeftText(int text) {
@@ -225,8 +169,9 @@ public class TopBarLayout extends RelativeLayout {
         tvLeft.setText(text);
         tvLeft.setVisibility(VISIBLE);
         imgBtnLeft.setVisibility(INVISIBLE);
-        if (leftCustomView != null)
+        if (leftCustomView != null) {
             leftCustomView.setVisibility(GONE);
+        }
     }
 
     public void setRightText(CharSequence text) {
@@ -238,8 +183,9 @@ public class TopBarLayout extends RelativeLayout {
         tvRight.setText(text);
         tvRight.setVisibility(VISIBLE);
         imgBtnRight.setVisibility(GONE);
-        if (rightCustomView != null)
+        if (rightCustomView != null) {
             rightCustomView.setVisibility(GONE);
+        }
     }
 
     public void setRightText(int text) {
@@ -251,15 +197,17 @@ public class TopBarLayout extends RelativeLayout {
         tvRight.setText(text);
         tvRight.setVisibility(VISIBLE);
         imgBtnRight.setVisibility(GONE);
-        if (rightCustomView != null)
+        if (rightCustomView != null) {
             rightCustomView.setVisibility(GONE);
+        }
     }
 
     public void setLeftResource(int res) {
         tvLeft.setVisibility(View.GONE);
         leftView.setVisibility(VISIBLE);
-        if (leftCustomView != null)
+        if (leftCustomView != null) {
             leftCustomView.setVisibility(GONE);
+        }
         if (res >= 0) {
             imgBtnLeft.setImageResource(res);
             imgBtnLeft.setVisibility(VISIBLE);
@@ -272,8 +220,9 @@ public class TopBarLayout extends RelativeLayout {
 
         tvRight.setVisibility(GONE);
         rightView.setVisibility(VISIBLE);
-        if (rightCustomView != null)
+        if (rightCustomView != null) {
             rightCustomView.setVisibility(GONE);
+        }
         if (res >= 0) {
             imgBtnRight.setVisibility(VISIBLE);
             imgBtnRight.setImageResource(res);
@@ -283,10 +232,12 @@ public class TopBarLayout extends RelativeLayout {
     }
 
     public void setRightView(View view) {
-        if (view == null)
+        if (view == null) {
             return;
-        if (rightCustomView != null)
+        }
+        if (rightCustomView != null) {
             ((ViewGroup) rightView).removeView(rightCustomView);
+        }
         rightCustomView = view;
         tvRight.setVisibility(GONE);
         imgBtnRight.setVisibility(GONE);
@@ -294,10 +245,12 @@ public class TopBarLayout extends RelativeLayout {
     }
 
     public void setLeftView(View view) {
-        if (view == null)
+        if (view == null) {
             return;
-        if (leftCustomView != null)
+        }
+        if (leftCustomView != null) {
             ((ViewGroup) leftView).removeView(leftCustomView);
+        }
         leftCustomView = view;
         tvLeft.setVisibility(GONE);
         imgBtnLeft.setVisibility(GONE);
@@ -305,12 +258,7 @@ public class TopBarLayout extends RelativeLayout {
     }
 
     public void searchToggle() {
-        LogUtils.i("searchToggle onSearching = " + onSearching);
-        if (onSearching) {
-            stopSearch();
-            return;
-        }
-        startSearch();
+        this.searchLayout.searchToggle();
     }
 
     public void setTitleDrawableLeft(int res) {
@@ -320,61 +268,28 @@ public class TopBarLayout extends RelativeLayout {
         title.setCompoundDrawables(drwLeft, null, null, null);
     }
 
-    private void startSearch() {
-        LogUtils.i("startSearch onSearching = " + onSearching);
-        if (searchListener != null) {
-            searchListener.startSearch();
-        }
-        if (onSearching)
-            return;
-        onSearching = true;
-        showSearchBar();
-        //表示EditText可以支持输入
-//        if (searchEdit.hasFocusable() && !searchEdit.getText().toString().isEmpty())
-//            setRightText(android.R.string.cancel);
-    }
-
     public void onSearch() {
-        String text = searchEdit.getText().toString().trim();
-//        if (text.isEmpty())
-//            return;
-        if (searchListener != null) {
-            searchListener.onSearch(text);
-        }
+        this.searchLayout.onSearch();
     }
 
     public Editable getInputText() {
-        return searchEdit.getText();
+        return searchLayout.getInputText();
     }
 
     private void showSearchBar() {
-//        title.setVisibility(GONE);
         searchLayout.setVisibility(VISIBLE);
     }
 
     public void showSearchBar(CharSequence hint) {
-        showSearchBar();
-        searchEdit.setHint(hint);
+        this.searchLayout.showSearchBar(hint);
     }
 
     public void setSearchBarKeyWords(String keyWords) {
-        showSearchBar();
-        searchEdit.setText(keyWords);
+        this.searchLayout.setSearchBarKeyWords(keyWords);
     }
 
     public void stopSearch() {
-        LogUtils.i("stopSearch onSearching = " + onSearching);
-        if (!onSearching)
-            return;
-        onSearching = false;
-        searchEdit.setText("");
-        tvRight.setVisibility(INVISIBLE);
-        if (searchListener != null) {
-            searchListener.stopSearch();
-        }
-        InputMethodManager imm = (InputMethodManager) getContext().getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-// 显示或者隐藏输入法
-        imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+        this.searchLayout.stopSearch();
     }
 
     public void disMissSearchBar() {

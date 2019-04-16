@@ -94,7 +94,7 @@ public class HttpRequestManager {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
                         ResponseError error;
-                        if (volleyError == null||volleyError.networkResponse == null) {
+                        if (volleyError == null || volleyError.networkResponse == null) {
                             error = new ResponseError(ResponseError.ERRPR_NO_RESPONCE, "主人，服务器正在偷懒！");
                         } else {
                             error = new ResponseError(volleyError.networkResponse.statusCode, "" + volleyError.networkResponse.statusCode);
@@ -134,6 +134,7 @@ public class HttpRequestManager {
             return;
         }
         if (files == null || files.length == 0) {
+            LogUtils.a("url：" + url + "[[[+ map: " + mapParams.toString());
             httpRequest(domainUrl, url, mapParams, responseListener);
             return;
         }
@@ -155,7 +156,7 @@ public class HttpRequestManager {
 
         }
         params.setBodyEntity(entity);
-        LogUtils.a("url：" + url + "[[[+ map: " + params.toString());
+        LogUtils.a("url：" + url + "[[[+ map: " + mapParams.toString());
         httpUtils.send(HttpRequest.HttpMethod.POST,
                 url,
                 params,

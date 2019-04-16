@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerInParent="true"
+    android:orientation="vertical">
+
+    <com.joey.ui.widget.ClearableEditText
+        android:id="@+id/top_search_edit"
+        style="@style/edit_with_corner_style"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_icon_height"
+        android:layout_gravity="center_vertical"
+        android:layout_marginRight="@dimen/layout_min_margin"
+        android:cursorVisible="true"
+        android:drawableLeft="@mipmap/ic_search_gray"
+        android:drawablePadding="10dp"
+        android:gravity="center_vertical|left"
+        android:textColor="#313131"
+        android:textColorHint="@color/text_hint_color_input" />
+
+    <ImageView
+        android:id="@+id/top_search_btn"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_gravity="center_vertical|right"
+        android:layout_marginRight="@dimen/layout_min_margin"
+        android:padding="@dimen/layout_exmin_margin"
+        android:visibility="visible" />
+
+</merge>
