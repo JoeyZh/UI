@@ -44,7 +44,7 @@ public abstract class ResponseListener<T> implements Response.Listener<String> {
             int status = obj.getInteger(HttpRequestManager.ERROR_CODE_KEY);
             String msg = obj.getString(HttpRequestManager.ERROR_MSG_KEY);
             error = new ResponseError(status, msg);
-            if (1 == status || 0 == status) {
+            if (1 == status) {
                 if (obj.get(resultKey) == null) {
                     onSuccess(null, status);
                     if (handler != null)
